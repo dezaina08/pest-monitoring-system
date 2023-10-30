@@ -2,13 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\PestType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Pest>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PestType>
  */
-class PestFactory extends Factory
+class PestTypeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +17,8 @@ class PestFactory extends Factory
     public function definition(): array
     {
         return [
-            'pest_type_id' => PestType::all()->random()->id
+            'name' => fake()->name(),
+            'description' => fake()->paragraph(),
         ];
     }
 }

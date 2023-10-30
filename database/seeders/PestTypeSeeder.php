@@ -2,22 +2,22 @@
 
 namespace Database\Seeders;
 
-use App\Models\Pest;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\PestType;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class PestSeeder extends Seeder
+class PestTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Pest::factory(25)->create()->each(function ($pest) {
+        PestType::factory(25)->create()->each(function ($pestType) {
             // Add random photo for each product
-            $pest
+            $pestType
                 ->addMediaFromUrl('https://picsum.photos/200')
-                ->toMediaCollection('pest_photos');
+                ->toMediaCollection('pest_type_photos');
         });
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\PestType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pests', function (Blueprint $table) {
+        Schema::create('pest_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(PestType::class);
+            $table->string('name', 50)->nullable();
+            $table->text('description', 200)->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pests');
+        Schema::dropIfExists('pest_types');
     }
 };
