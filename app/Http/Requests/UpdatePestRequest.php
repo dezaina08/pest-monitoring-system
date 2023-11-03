@@ -22,7 +22,12 @@ class UpdatePestRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => [
+                'required',
+                'max:50',
+                Rule::unique('pest_types')->ignore($this->id)
+            ],
+            'description' => 'nullable',
         ];
     }
 }
