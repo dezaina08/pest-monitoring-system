@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\PestType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StorePestTypeRequest;
 use App\Http\Requests\UpdatePestTypeRequest;
 
@@ -86,8 +87,18 @@ class PestTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PestType $pestType)
+    public function destroy(Request $request)
     {
-        //
+        if(!empty($request->id_array) && is_array($request->id_array)) {
+            DB::beginTransaction();
+            try {
+                PestType::destroy($request->id_array);
+                DB::commit();
+                return back();
+            } catch (Throwable $e) {
+                DB::rollBack();
+                return $e;
+            }
+        }
     }
 }
