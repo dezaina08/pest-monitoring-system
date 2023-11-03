@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\PestType;
 use App\Http\Requests\StorePestTypeRequest;
 use App\Http\Requests\UpdatePestTypeRequest;
@@ -13,7 +14,12 @@ class PestTypeController extends Controller
      */
     public function index()
     {
-        //
+        $pestTypes = PestType::all(); // Fetch all pest types from the database
+
+        // Return the data to the Inertia view, which will be used by your Vue component
+        return Inertia::render('PestType/Index', [
+            'pestTypes' => $pestTypes,
+        ]);
     }
 
     /**
