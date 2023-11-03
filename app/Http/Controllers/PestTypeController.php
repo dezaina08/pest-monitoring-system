@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Throwable;
 use Inertia\Inertia;
 use App\Models\PestType;
 use Illuminate\Http\Request;
@@ -49,7 +50,9 @@ class PestTypeController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('PestType/Create', [
+            //
+        ]);
     }
 
     /**
@@ -57,7 +60,16 @@ class PestTypeController extends Controller
      */
     public function store(StorePestTypeRequest $request)
     {
-        //
+        $validated = $request->validated();
+        DB::beginTransaction();
+        try {
+            PestType::create($validated);
+            DB::commit();
+            return back();
+        } catch (Throwable $e) {
+            DB::rollBack();
+            return $e;
+        }
     }
 
     /**
@@ -73,7 +85,9 @@ class PestTypeController extends Controller
      */
     public function edit(PestType $pestType)
     {
-        //
+        return Inertia::render('PestType/Edit', [
+            'model' => $pestType
+        ]);
     }
 
     /**
@@ -81,7 +95,16 @@ class PestTypeController extends Controller
      */
     public function update(UpdatePestTypeRequest $request, PestType $pestType)
     {
-        //
+        $validated = $request->validated();
+        DB::beginTransaction();
+        try {
+            $pestType->update($validated);
+            DB::commit();
+            return back();
+        } catch (Throwable $e) {
+            DB::rollBack();
+            return $e;
+        }
     }
 
     /**
