@@ -7,8 +7,8 @@ use Inertia\Inertia;
 use App\Models\PestType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\StorePestTypeRequest;
-use App\Http\Requests\UpdatePestTypeRequest;
+use App\Http\Requests\PestType\StorePestTypeRequest;
+use App\Http\Requests\PestType\UpdatePestTypeRequest;
 
 class PestTypeController extends Controller
 {
