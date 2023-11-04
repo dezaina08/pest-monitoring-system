@@ -132,7 +132,7 @@ import InputError from "@/Components/InputError.vue";
 import DisplayData from "@/Components/DisplayData.vue";
 import Card from "@/Components/Card.vue";
 
-const moduleName = "PestTypes";
+const moduleName = "Pest Types";
 const url = "pest-types";
 const pageTitle = "Update Pest Types";
 

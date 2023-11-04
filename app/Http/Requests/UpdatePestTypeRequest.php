@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdatePestTypeRequest extends FormRequest
@@ -11,7 +12,7 @@ class UpdatePestTypeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,12 @@ class UpdatePestTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => [
+                'required',
+                'max:50',
+                Rule::unique('pest_types')->ignore($this->id)
+            ],
+            'description' => 'nullable',
         ];
     }
 }

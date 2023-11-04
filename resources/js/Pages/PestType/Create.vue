@@ -96,7 +96,7 @@ import Swal from "sweetalert2";
 import { router } from "@inertiajs/vue3";
 import InputError from "@/Components/InputError.vue";
 
-const moduleName = "PestTypes";
+const moduleName = "Pest Types";
 const url = "pest-types";
 const pageTitle = "Create Pest Types";
 
