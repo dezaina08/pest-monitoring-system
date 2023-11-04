@@ -11,7 +11,7 @@ class StorePestTypeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class StorePestTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|max:50|unique:units',
+            'name' => 'required|max:50|unique:pest_types',
             'description' => 'nullable',
         ];
     }
