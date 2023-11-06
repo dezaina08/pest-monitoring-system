@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\PestType;
 
+use Illuminate\Validation\Rules\File;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePestTypeRequest extends FormRequest
@@ -22,6 +23,11 @@ class StorePestTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'photo' => [
+                'nullable',
+                File::image()
+                ->max(5 * 1024),
+            ],
             'name' => 'required|max:50|unique:pest_types',
             'description' => 'nullable',
         ];

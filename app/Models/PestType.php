@@ -22,6 +22,15 @@ class PestType extends Model implements HasMedia
         'description',
     ];
 
+        /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'pest_type_photo',
+    ];
+
      /**
      * Set single file collection
      */

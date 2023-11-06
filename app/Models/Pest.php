@@ -20,24 +20,4 @@ class Pest extends Model implements HasMedia
     protected $fillable = [
         'pest_type_id',
     ];
-
-    /**
-     * Set single file collection
-     */
-    public function registerMediaCollections(): void
-    {
-        $this
-            ->addMediaCollection('pest_photos')
-            ->singleFile();
-    }
-
-    /**
-     * Get the user's profile photo.
-     */
-    protected function pestPhoto(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->getFirstMediaUrl('pest_photos'),
-        );
-    }
 }

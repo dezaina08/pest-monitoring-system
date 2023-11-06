@@ -60,16 +60,23 @@ class PestTypeController extends Controller
      */
     public function store(StorePestTypeRequest $request)
     {
-        $validated = $request->validated();
+        $validated = $request->safe()->except(['photo']);
         DB::beginTransaction();
         try {
-            PestType::create($validated);
+            $pestType = PestType::create($validated);
+                    // Add photo
+            if ($request->photo) {
+                $pestType->addMedia($request->photo)
+                    ->toMediaCollection('pest_type_photos');
+            }
             DB::commit();
             return back();
         } catch (Throwable $e) {
             DB::rollBack();
             return $e;
         }
+
+
     }
 
     /**
@@ -99,6 +106,21 @@ class PestTypeController extends Controller
         DB::beginTransaction();
         try {
             $pestType->update($validated);
+
+            // Remove photo
+            if ($request->remove_photo) {
+            $media = $pestType->getFirstMedia('pest_type_photos');
+            if ($media) {
+                $media->delete();
+            }
+            }
+
+            // Add photo
+            if ($request->photo) {
+                $pestType->addMedia($request->photo)
+                    ->toMediaCollection('pest_type_photos');
+            }
+
             DB::commit();
             return back();
         } catch (Throwable $e) {

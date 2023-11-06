@@ -98,6 +98,66 @@
                         </Card>
                     </div>
                     <div class="col-span-1">
+                        <div
+                            class="mb-4 flex flex-col items-center p-4 lg:p-6 bg-white rounded-lg shadow"
+                        >
+                            <input
+                                type="file"
+                                accept="image/*"
+                                @input="previewImage"
+                                id="photo"
+                                name="photo"
+                                hidden
+                            />
+
+                            <div class="mb-4 flex flex-col items-center">
+                                <img
+                                    :src="
+                                        (preview != null) & (preview != '')
+                                            ? preview
+                                            : '/pestType-no-image.png'
+                                    "
+                                    class="w-52 h-52 object-cover mb-2 rounded-md"
+                                />
+                                <div
+                                    v-if="!!form.photo"
+                                    class="text-sm text-gray-500"
+                                >
+                                    <p class="mb-0">
+                                        File name: {{ form.photo.name }}
+                                    </p>
+                                    <p class="mb-0">
+                                        Size:
+                                        {{
+                                            (form.photo.size / 1024).toFixed(2)
+                                        }}KB
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-center gap-3">
+                                <button
+                                    @click="browseFile()"
+                                    type="button"
+                                    class="h-8 bg-blue-500 hover:bg-blue-600 text-white rounded-md px-3 text-sm"
+                                >
+                                    Browse File
+                                </button>
+                                <button
+                                    v-if="preview"
+                                    @click="resetFile()"
+                                    type="button"
+                                    class="h-8 bg-red-500 hover:bg-red-600 text-white rounded-md px-3 text-sm"
+                                >
+                                    Remove
+                                </button>
+                            </div>
+
+                            <InputError
+                                class="mt-2"
+                                :message="form.errors.photo"
+                            />
+                        </div>
                         <!-- Timeline -->
                         <div class="mb-4 p-4 lg:p-6 bg-white rounded-lg shadow">
                             <DisplayData
@@ -136,6 +196,7 @@ import DynamicLink from "@/Components/DynamicLink.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Swal from "sweetalert2";
 import { router } from "@inertiajs/vue3";
+import { ref } from "vue";
 import InputError from "@/Components/InputError.vue";
 import DisplayData from "@/Components/DisplayData.vue";
 import Card from "@/Components/Card.vue";
@@ -150,13 +211,17 @@ const props = defineProps({
 
 const form = useForm({
     id: props.model.id,
+    photo: null,
+    remove_photo: false,
     name: props.model.name,
     symbol: props.model.symbol,
     description: props.model.description,
+    // Form method spoofing
+    _method: "put",
 });
 
 let submitForm = () => {
-    form.patch(route(url + ".update", props.model.id), {
+    form.post(route(url + ".update", props.model.id), {
         preserveScroll: true,
         onSuccess: () => {
             router.get("/" + url);
@@ -170,6 +235,31 @@ let submitForm = () => {
             });
         },
     });
+};
+
+const preview = ref(props.model.pest_type_photo);
+
+let previewImage = (event) => {
+    let input = event.target;
+    if (input.files.length) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+            preview.value = e.target.result;
+        };
+        form.photo = input.files[0];
+        reader.readAsDataURL(input.files[0]);
+        form.remove_photo = false;
+    }
+};
+
+let browseFile = () => {
+    document.getElementById("photo").click();
+};
+
+let resetFile = () => {
+    form.photo = null;
+    preview.value = null;
+    form.remove_photo = true;
 };
 </script>
 <style lang=""></style>
