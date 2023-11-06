@@ -13,11 +13,6 @@ class PestSeeder extends Seeder
      */
     public function run(): void
     {
-        Pest::factory(25)->create()->each(function ($pest) {
-            // Add random photo for each product
-            $pest
-                ->addMediaFromUrl('https://picsum.photos/200')
-                ->toMediaCollection('pest_photos');
-        });
+        Pest::factory(25)->create();
     }
 }
