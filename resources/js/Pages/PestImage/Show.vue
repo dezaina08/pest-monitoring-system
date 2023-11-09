@@ -26,67 +26,61 @@
                     />
                 </div>
             </div>
-            <form
-                class="mb-14"
-                @submit.prevent="submitForm()"
-                enctype="multipart/form-data"
+            <div
+                class="grid grid-cols-1 lg:grid-cols-3 gap-y-4 lg:gap-y-0 lg:gap-x-4"
             >
-                <div
-                    class="grid grid-cols-1 lg:grid-cols-3 gap-y-4 lg:gap-y-0 lg:gap-x-4"
-                >
-                    <div class="">
-                        <Card class="mb-4">
-                            <template #card-header>
-                                <h3
-                                    class="text-lg font-semibold text-gray-900 whitespace-nowrap md:mb-0 mb-3"
-                                >
-                                    Pest Image Details
-                                </h3>
-                            </template>
-                            <template #card-body>
-                                <!-- START: Image -->
-                                <div
-                                    class="mb-4 flex flex-col items-center p-4 lg:p-6 bg-white rounded-lg shadow"
-                                >
-                                    <img
-                                        :src="
-                                            (model.pest_image_photo != null) &
-                                            (model.pest_image_photo != '')
-                                                ? model.pest_image_photo
-                                                : '/pestType-no-image.png'
-                                        "
-                                        class="w-52 h-52 object-cover rounded-md"
-                                    />
-                                </div>
-                                <!-- END: Image -->
-                                <!-- START: Timeline -->
-                                <div
-                                    class="mb-4 p-4 lg:p-6 bg-white rounded-lg shadow"
-                                >
-                                    <DisplayData
-                                        label="Created:"
-                                        :value="
-                                            model.created_at_iso_format +
-                                            ' - ' +
-                                            model.created_at_for_humans
-                                        "
-                                        class="mb-5"
-                                    />
-                                    <DisplayData
-                                        label="Updated:"
-                                        :value="
-                                            model.updated_at_iso_format +
-                                            ' - ' +
-                                            model.updated_at_for_humans
-                                        "
-                                    />
-                                </div>
-                                <!-- END: Timeline -->
-                            </template>
-                        </Card>
-                    </div>
+                <div class="">
+                    <Card class="mb-4">
+                        <template #card-header>
+                            <h3
+                                class="text-lg font-semibold text-gray-900 whitespace-nowrap md:mb-0 mb-3"
+                            >
+                                Pest Image Details
+                            </h3>
+                        </template>
+                        <template #card-body>
+                            <!-- START: Image -->
+                            <div
+                                class="mb-4 flex flex-col items-center p-4 lg:p-6 bg-white rounded-lg shadow"
+                            >
+                                <img
+                                    :src="
+                                        (model.pest_image_photo != null) &
+                                        (model.pest_image_photo != '')
+                                            ? model.pest_image_photo
+                                            : '/pestType-no-image.png'
+                                    "
+                                    class="w-52 h-52 object-cover rounded-md"
+                                />
+                            </div>
+                            <!-- END: Image -->
+                            <!-- START: Timeline -->
+                            <div
+                                class="mb-4 p-4 lg:p-6 bg-white rounded-lg shadow"
+                            >
+                                <DisplayData
+                                    label="Created:"
+                                    :value="
+                                        model.created_at_iso_format +
+                                        ' - ' +
+                                        model.created_at_for_humans
+                                    "
+                                    class="mb-5"
+                                />
+                                <DisplayData
+                                    label="Updated:"
+                                    :value="
+                                        model.updated_at_iso_format +
+                                        ' - ' +
+                                        model.updated_at_for_humans
+                                    "
+                                />
+                            </div>
+                            <!-- END: Timeline -->
+                        </template>
+                    </Card>
                 </div>
-            </form>
+            </div>
         </div>
     </AuthenticatedLayout>
 </template>
