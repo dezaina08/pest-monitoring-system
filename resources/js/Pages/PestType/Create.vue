@@ -26,177 +26,157 @@
                     />
                 </div>
             </div>
-            <div class="py-4 lg:py-6 p-4 bg-white rounded-lg shadow">
+            <form @submit.prevent="submitForm()">
                 <div
-                    class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600"
+                    class="grid grid-cols-1 lg:grid-cols-3 gap-y-4 lg:gap-y-0 lg:gap-x-4"
                 >
-                    <h3
-                        class="text-lg font-semibold text-gray-900 dark:text-white"
-                    >
-                        Pest Type Details
-                    </h3>
-                </div>
-                <form @submit.prevent="submitForm()">
-                    <div
-                        class="grid grid-cols-1 lg:grid-cols-3 gap-y-4 lg:gap-y-0 lg:gap-x-4"
-                    >
-                        <div class="col-span-2">
-                            <Card class="mb-4">
-                                <template #card-header>
-                                    <h3
-                                        class="text-lg font-semibold text-gray-900 whitespace-nowrap md:mb-0 mb-3"
-                                    >
-                                        Pest Type Details
-                                    </h3>
-                                </template>
-                                <template #card-body>
-                                    <div
-                                        class="grid gap-4 md:grid-cols-2 sm:gap-6 mb-5"
-                                    >
-                                        <div class="">
-                                            <InputLabel
-                                                for="name"
-                                                value="Name of Measurement"
-                                            />
-                                            <TextInput
-                                                id="name"
-                                                type="text"
-                                                class="mt-1 block w-full h-10"
-                                                v-model="form.name"
-                                                required
-                                                autofocus
-                                                autocomplete="off"
-                                                placeholder="Type unit name"
-                                            />
-                                            <InputError
-                                                class="mt-1"
-                                                :message="form.errors.name"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="grid gap-4 md:grid-cols-2 sm:gap-6 mb-5"
-                                    >
-                                        <div class="">
-                                            <InputLabel
-                                                for="description"
-                                                value="Description"
-                                            />
-                                            <TextareaInput
-                                                id="description"
-                                                class="mt-1 block w-full"
-                                                v-model="form.description"
-                                                placeholder="Type unit description"
-                                                rows="4"
-                                            />
-                                            <InputError
-                                                class="mt-1"
-                                                :message="
-                                                    form.errors.description
-                                                "
-                                            />
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="flex flex-col md:flex-row gap-3 md:gap-2"
-                                    >
-                                        <PrimaryButton
-                                            :disabled="form.processing"
-                                        >
-                                            Save
-                                        </PrimaryButton>
-                                        <PrimaryButton
-                                            type="button"
-                                            :disabled="form.processing"
-                                            @click="submitForm(true)"
-                                        >
-                                            Save & Add Another
-                                        </PrimaryButton>
-                                        <DynamicLink
-                                            :href="'/' + url"
-                                            type="secondary"
-                                        >
-                                            Back
-                                        </DynamicLink>
-                                    </div>
-                                </template>
-                            </Card>
-                        </div>
-                        <div class="col-span-1">
-                            <Card class="mb-4">
-                                <template #card-header>
-                                    <h3
-                                        class="text-lg font-semibold text-gray-900 whitespace-nowrap md:mb-0 mb-3"
-                                    >
-                                        Image
-                                    </h3>
-                                </template>
-                                <template #card-body>
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        @input="previewImage"
-                                        id="photo"
-                                        name="photo"
-                                        hidden
-                                    />
-
-                                    <div
-                                        class="mb-2 flex flex-col items-center"
-                                    >
-                                        <img
-                                            :src="
-                                                preview ??
-                                                '/product-no-image.png'
-                                            "
-                                            class="h-44 object-cover mb-2 rounded-md"
+                    <div class="col-span-2">
+                        <Card class="mb-4">
+                            <template #card-header>
+                                <h3
+                                    class="text-lg font-semibold text-gray-900 whitespace-nowrap md:mb-0 mb-3"
+                                >
+                                    Pest Type Details
+                                </h3>
+                            </template>
+                            <template #card-body>
+                                <div
+                                    class="grid gap-4 md:grid-cols-2 sm:gap-6 mb-5"
+                                >
+                                    <div class="">
+                                        <InputLabel
+                                            for="name"
+                                            value="Name of Measurement"
                                         />
-                                        <div
-                                            v-if="!!form.photo"
-                                            class="text-sm text-gray-500"
-                                        >
-                                            <p class="mb-0">
-                                                File name: {{ form.photo.name }}
-                                            </p>
-                                            <p class="mb-0">
-                                                Size:
-                                                {{
-                                                    (
-                                                        form.photo.size / 1024
-                                                    ).toFixed(2)
-                                                }}KB
-                                            </p>
-                                        </div>
+                                        <TextInput
+                                            id="name"
+                                            type="text"
+                                            class="mt-1 block w-full h-10"
+                                            v-model="form.name"
+                                            required
+                                            autofocus
+                                            autocomplete="off"
+                                            placeholder="Type unit name"
+                                        />
+                                        <InputError
+                                            class="mt-1"
+                                            :message="form.errors.name"
+                                        />
                                     </div>
-
-                                    <div class="flex justify-center gap-3">
-                                        <button
-                                            @click="browseFile()"
-                                            type="button"
-                                            class="h-8 bg-blue-500 hover:bg-blue-600 text-white rounded-md px-3 text-sm"
-                                        >
-                                            Browse File
-                                        </button>
-                                        <button
-                                            v-if="preview"
-                                            @click="resetFile()"
-                                            type="button"
-                                            class="h-8 bg-red-500 hover:bg-red-600 text-white rounded-md px-3 text-sm"
-                                        >
-                                            Remove
-                                        </button>
+                                </div>
+                                <div
+                                    class="grid gap-4 md:grid-cols-2 sm:gap-6 mb-5"
+                                >
+                                    <div class="">
+                                        <InputLabel
+                                            for="description"
+                                            value="Description"
+                                        />
+                                        <TextareaInput
+                                            id="description"
+                                            class="mt-1 block w-full"
+                                            v-model="form.description"
+                                            placeholder="Type unit description"
+                                            rows="4"
+                                        />
+                                        <InputError
+                                            class="mt-1"
+                                            :message="form.errors.description"
+                                        />
                                     </div>
-
-                                    <InputError
-                                        class="mt-2"
-                                        :message="form.errors.photo"
-                                    />
-                                </template>
-                            </Card>
-                        </div>
+                                </div>
+                                <div
+                                    class="flex flex-col md:flex-row gap-3 md:gap-2"
+                                >
+                                    <PrimaryButton :disabled="form.processing">
+                                        Save
+                                    </PrimaryButton>
+                                    <PrimaryButton
+                                        type="button"
+                                        :disabled="form.processing"
+                                        @click="submitForm(true)"
+                                    >
+                                        Save & Add Another
+                                    </PrimaryButton>
+                                    <DynamicLink
+                                        :href="'/' + url"
+                                        type="secondary"
+                                    >
+                                        Back
+                                    </DynamicLink>
+                                </div>
+                            </template>
+                        </Card>
                     </div>
-                </form>
-            </div>
+                    <div class="col-span-1">
+                        <Card class="mb-4">
+                            <template #card-header>
+                                <h3
+                                    class="text-lg font-semibold text-gray-900 whitespace-nowrap md:mb-0 mb-3"
+                                >
+                                    Image
+                                </h3>
+                            </template>
+                            <template #card-body>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    @input="previewImage"
+                                    id="photo"
+                                    name="photo"
+                                    hidden
+                                />
+
+                                <div class="mb-2 flex flex-col items-center">
+                                    <img
+                                        :src="preview ?? '/pest-no-image.png'"
+                                        class="h-44 object-cover mb-2 rounded-md"
+                                    />
+                                    <div
+                                        v-if="!!form.photo"
+                                        class="text-sm text-gray-500"
+                                    >
+                                        <p class="mb-0">
+                                            File name: {{ form.photo.name }}
+                                        </p>
+                                        <p class="mb-0">
+                                            Size:
+                                            {{
+                                                (
+                                                    form.photo.size / 1024
+                                                ).toFixed(2)
+                                            }}KB
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex justify-center gap-3">
+                                    <button
+                                        @click="browseFile()"
+                                        type="button"
+                                        class="h-8 bg-blue-500 hover:bg-blue-600 text-white rounded-md px-3 text-sm"
+                                    >
+                                        Browse File
+                                    </button>
+                                    <button
+                                        v-if="preview"
+                                        @click="resetFile()"
+                                        type="button"
+                                        class="h-8 bg-red-500 hover:bg-red-600 text-white rounded-md px-3 text-sm"
+                                    >
+                                        Remove
+                                    </button>
+                                </div>
+
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.photo"
+                                />
+                            </template>
+                        </Card>
+                    </div>
+                </div>
+            </form>
         </div>
     </AuthenticatedLayout>
 </template>

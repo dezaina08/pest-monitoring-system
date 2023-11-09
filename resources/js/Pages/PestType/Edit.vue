@@ -115,7 +115,7 @@
                                     :src="
                                         (preview != null) & (preview != '')
                                             ? preview
-                                            : '/pestType-no-image.png'
+                                            : '/pest-no-image.png'
                                     "
                                     class="w-52 h-52 object-cover mb-2 rounded-md"
                                 />
