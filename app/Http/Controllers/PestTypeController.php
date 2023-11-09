@@ -84,7 +84,9 @@ class PestTypeController extends Controller
      */
     public function show(PestType $pestType)
     {
-        //
+        return Inertia::render('PestType/Show', [
+            'model' => $pestType
+        ]);
     }
 
     /**
