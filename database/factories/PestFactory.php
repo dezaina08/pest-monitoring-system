@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\PestImage;
 use App\Models\PestType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,7 +19,9 @@ class PestFactory extends Factory
     public function definition(): array
     {
         return [
-            'pest_type_id' => PestType::all()->random()->id
+            'pest_image_id' => PestImage::all()->random()->id,
+            'pest_type_id' => PestType::all()->random()->id,
+            'count' => rand(1, 5),
         ];
     }
 }
