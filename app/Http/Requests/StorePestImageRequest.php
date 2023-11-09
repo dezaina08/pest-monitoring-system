@@ -11,7 +11,7 @@ class StorePestImageRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StorePestImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'date_captured' => 'required|date',
+            'photos' => 'required',
         ];
     }
 }

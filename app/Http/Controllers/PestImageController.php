@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Throwable;
+use Inertia\Inertia;
 use App\Models\PestImage;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StorePestImageRequest;
 use App\Http\Requests\UpdatePestImageRequest;
 
@@ -21,7 +24,9 @@ class PestImageController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('PestImage/Create', [
+            //
+        ]);
     }
 
     /**
@@ -29,7 +34,28 @@ class PestImageController extends Controller
      */
     public function store(StorePestImageRequest $request)
     {
-        //
+        $validated = $request->validated();
+        // dd($validated['photos']);
+
+        DB::beginTransaction();
+        try {
+            foreach ($validated['photos'] as $photo) {
+                $pestImage = PestImage::create([
+                    'date_captured' => $validated['date_captured'],
+                ]);
+
+                // Add photo
+                $pestImage->addMediaFromBase64($photo)
+                    ->usingFileName(substr(md5(uniqid(mt_rand(), true)), 0, 8) . '.jpeg')
+                    ->toMediaCollection('pest_image_photos');
+            }
+
+            DB::commit();
+            return back();
+        } catch (Throwable $e) {
+            DB::rollBack();
+            return $e;
+        }
     }
 
     /**
