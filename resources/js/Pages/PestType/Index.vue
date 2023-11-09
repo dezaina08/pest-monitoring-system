@@ -62,7 +62,7 @@
                                     :src="
                                         item.pest_type_photo != ''
                                             ? item.pest_type_photo
-                                            : '/pestType-no-image.png'
+                                            : '/pest-no-image.png'
                                     "
                                     alt="pestType-image"
                                     class="h-12 w-12 object-cover rounded-md"
