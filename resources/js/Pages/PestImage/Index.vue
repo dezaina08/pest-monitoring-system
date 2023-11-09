@@ -56,6 +56,19 @@
                         <td class="px-4 py-3">
                             {{ item.id }}
                         </td>
+                        <td class="px-2 w-16 py-3">
+                            <div class="h-12 w-12">
+                                <img
+                                    :src="
+                                        item.pest_image_photo != ''
+                                            ? item.pest_image_photo
+                                            : '/pest-no-image.png'
+                                    "
+                                    alt="pest-image"
+                                    class="h-12 w-12 object-cover rounded-md"
+                                />
+                            </div>
+                        </td>
                         <td
                             class="px-2 py-3 font-medium whitespace-nowrap text-gray-900"
                         >
@@ -189,6 +202,12 @@ const tableHeader = ref([
         title: "ID",
         class: "px-4 py-3",
         column: "id",
+        visible: true,
+    },
+    {
+        title: "IMAGE",
+        class: "px-2 py-3",
+        column: null,
         visible: true,
     },
     {
