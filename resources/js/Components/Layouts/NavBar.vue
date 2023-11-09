@@ -43,7 +43,7 @@
                                     : 'text-gray-700 hover:bg-gray-100',
                             ]"
                         >
-                            Pest-types
+                            Pest Types
                         </Link>
                     </div>
                 </div>
