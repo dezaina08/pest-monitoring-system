@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Pest;
 use Spatie\MediaLibrary\HasMedia;
 use App\Traits\ModelTimelineTrait;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PestImage extends Model implements HasMedia
@@ -20,6 +22,7 @@ class PestImage extends Model implements HasMedia
      */
     protected $fillable = [
         'date_captured',
+        'is_counted',
     ];
 
     /**
@@ -53,5 +56,13 @@ class PestImage extends Model implements HasMedia
         return Attribute::make(
             get: fn () => $this->getFirstMediaUrl('pest_image_photos'),
         );
+    }
+
+    /**
+     * Get pests.
+     */
+    public function pests(): HasMany
+    {
+        return $this->hasMany(Pest::class);
     }
 }
