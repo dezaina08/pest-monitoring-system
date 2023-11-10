@@ -138,6 +138,7 @@
                                         {{ currentPestImageIndex + 1 }} / {{ props.pest_images.length }}
                                     </div>
                                     <button
+                                        v-if="currentPestImageIndex != props.pest_images.length - 1"
                                         type="button"
                                         class="px-4 py-2 border-2 rounded-lg text-sm border-green-500 hover:border-green-700 text-green-600 hover:text-green-700 font-bold"
                                         @click="submit('next')"
@@ -145,6 +146,14 @@
                                         :class="{'opacity-50': buttonDisabled}"
                                     >
                                         Next
+                                    </button>
+                                    <button
+                                        v-else
+                                        type="button"
+                                        class="px-4 py-2 border-2 rounded-lg text-sm border-green-500 hover:border-green-700 text-green-600 hover:text-green-700 font-bold"
+                                        @click="submit('done')"
+                                    >
+                                        Done
                                     </button>
                                 </div>
                             </div>
@@ -179,10 +188,14 @@ import { router } from "@inertiajs/vue3";
 import { ref, watch, computed, onMounted } from "vue";
 import InputError from "@/Components/InputError.vue";
 import Card from "@/Components/Card.vue";
+import {useToast} from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
 
 const moduleName = "Counting";
 const url = "pests";
 const pageTitle = "Counting";
+
+const $toast = useToast();
 
 const props = defineProps({
     pest_types: {
@@ -250,6 +263,11 @@ const submit = (action = 'prev') => {
         } else if (action == 'next') {
             nextPestImage()
         }
+        $toast.open({
+            type: 'success',
+            message: 'Pest count saved!',
+            position: 'top-right'
+        })
     })
     .catch(function (error) {
         console.log(error);
@@ -262,7 +280,7 @@ const currentPestImageIndex = ref(props.pest_images.findIndex(object => {
 
 // Set current pests count
 onMounted(() => {
-    props.pest_images[currentPestImageIndex.value].pests.forEach(pestObject => {
+    props.pest_images[currentPestImageIndex.value]?.pests.forEach(pestObject => {
         pest_types.value.find(pestTypeObject => {
             if (pestObject.pest_type_id == pestTypeObject.id) {
                 pestTypeObject.count = pestObject.count
