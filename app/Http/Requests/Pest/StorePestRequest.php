@@ -11,7 +11,7 @@ class StorePestRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StorePestRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'pest_image_id' => 'required|integer',
+            'pest_types' => 'required',
+            'date_captured' => 'required|date',
         ];
     }
 }

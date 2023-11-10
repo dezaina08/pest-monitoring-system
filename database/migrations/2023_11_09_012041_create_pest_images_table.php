@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('pest_images', function (Blueprint $table) {
             $table->id();
             $table->date('date_captured')->default(now());
+            $table->boolean('is_counted')->default(false);
             $table->timestamps();
         });
     }
