@@ -104,7 +104,7 @@
                                 >
                                     <MenuItems
                                         as="ul"
-                                        class="absolute right-8 sm:right-10 lg:right-12 min-w-[164px] origin-top-right mt-1 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none grid z-50"
+                                        class="absolute right-8 sm:right-10 lg:right-12 min-w-[164px] origin-top-right mt-1 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none grid z-30"
                                     >
                                         <MenuItem as="li">
                                             <Link
