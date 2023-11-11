@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Throwable;
+use App\Models\Pest;
 use Inertia\Inertia;
 use App\Models\PestImage;
 use Illuminate\Http\Request;
@@ -109,8 +110,20 @@ class PestImageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PestImage $pestImage)
+    public function destroy(Request $request)
     {
-        //
+        if(!empty($request->id_array) && is_array($request->id_array)) {
+            DB::beginTransaction();
+            try {
+                Pest::whereIn('pest_image_id', $request->id_array)->delete();
+
+                PestImage::destroy($request->id_array);
+                DB::commit();
+                return back();
+            } catch (Throwable $e) {
+                DB::rollBack();
+                return $e;
+            }
+        }
     }
 }

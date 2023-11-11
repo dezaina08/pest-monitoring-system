@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Throwable;
+use App\Models\Pest;
 use Inertia\Inertia;
 use App\Models\PestType;
 use Illuminate\Http\Request;
@@ -139,6 +140,8 @@ class PestTypeController extends Controller
         if(!empty($request->id_array) && is_array($request->id_array)) {
             DB::beginTransaction();
             try {
+                Pest::whereIn('pest_type_id', $request->id_array)->delete();
+
                 PestType::destroy($request->id_array);
                 DB::commit();
                 return back();

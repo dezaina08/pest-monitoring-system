@@ -61,7 +61,6 @@ class PestController extends Controller
     public function store(StorePestRequest $request)
     {
         $validated = $request->validated();
-        // dd($validated);
         DB::beginTransaction();
         try {
 
@@ -89,9 +88,6 @@ class PestController extends Controller
                     'count' => $item['count'],
                 ]);
             }
-
-            // dd($pest_image->pests);
-            // dd($filtered_pest_types);
 
             DB::commit();
             return back();
