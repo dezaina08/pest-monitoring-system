@@ -199,6 +199,17 @@ const deleteItem = useDeleteItemStore();
 const props = defineProps({
     columns: Array,
     response: Object,
+    search: {
+        type: String,
+        default: "",
+    },
+    order: {
+        type: Object,
+        default: {
+            orderBy: "",
+            orderType: "",
+        },
+    },
 });
 
 // column = database column name, used for sortBy, null to disable sorting
