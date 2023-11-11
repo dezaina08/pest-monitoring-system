@@ -35,7 +35,9 @@ class PestTypeController extends Controller
      */
     private function getData($request)
     {
-        $query = PestType::orderBy($this->tableName . '.' . ($request->orderBy ?? 'id'), $request->orderType ?? 'desc')
+        $query = PestType::with('media')
+
+        ->orderBy($this->tableName . '.' . ($request->orderBy ?? 'id'), $request->orderType ?? 'desc')
 
         ->when($request->search != '', function ($query) use ($request) {
                 return $query->orWhere($this->tableName . '.name', 'like', '%' . $request->search . '%');

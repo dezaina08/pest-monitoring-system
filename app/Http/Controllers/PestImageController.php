@@ -25,13 +25,15 @@ class PestImageController extends Controller
             'order' => [
                 'orderBy' => $request->orderBy ?? 'id',
                 'orderType' => $request->orderType ?? 'desc'
-            ]
+            ],
         ]);
     }
 
     private function getData($request)
     {
-        $query = PestImage::orderBy($this->tableName . '.' . ($request->orderBy ?? 'id'), $request->orderType ?? 'desc')
+        $query = PestImage::with('media')
+
+        ->orderBy($this->tableName . '.' . ($request->orderBy ?? 'id'), $request->orderType ?? 'desc')
 
         ->when($request->search != '', function ($query) use ($request) {
                 return $query->orWhere($this->tableName . '.date_captured', 'like', '%' . $request->search . '%');
