@@ -46,7 +46,7 @@
                                     <div class="">
                                         <InputLabel
                                             for="name"
-                                            value="Name of Measurement"
+                                            value="Name"
                                         />
                                         <TextInput
                                             id="name"
@@ -56,7 +56,7 @@
                                             required
                                             autofocus
                                             autocomplete="off"
-                                            placeholder="Type unit name"
+                                            placeholder="Type pest name"
                                         />
                                         <InputError
                                             class="mt-1"
@@ -76,7 +76,7 @@
                                             id="description"
                                             class="mt-1 block w-full"
                                             v-model="form.description"
-                                            placeholder="Type unit description"
+                                            placeholder="Type pest description"
                                             rows="4"
                                         />
                                         <InputError

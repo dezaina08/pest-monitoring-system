@@ -8,7 +8,7 @@
                     class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-y-4 sm:gap-y-0"
                 >
                     <div class="flex items-center justify-start text-gray-500">
-                        <TagIcon
+                        <BugAntIcon
                             class="h-10 w-10 transition duration-75 mr-3"
                         />
                         <h1 class="text-3xl">{{ pageTitle }}</h1>
@@ -18,11 +18,11 @@
                             :href="url + '/create'"
                             class="flex items-center px-4 py-2 rounded-full border-2 border-green-500 text-green-500 font-bold focus:ring-1 ring-green-500 ring-offset-2 hover:bg-green-50s hover:text-green-600 hover:border-green-600 shadow-md transition ease-in-out duration-150"
                         >
-                            <PlusCircleIcon
+                            <CloudArrowUpIcon
                                 class="block h-5 w-5 mr-2"
                                 aria-hidden="true"
                             />
-                            New
+                            Upload
                         </Link>
                     </div>
                 </div>
@@ -177,10 +177,10 @@ import {
     EyeIcon,
     PencilSquareIcon,
     TrashIcon,
-    PlusCircleIcon,
+    CloudArrowUpIcon,
     EllipsisHorizontalIcon,
 } from "@heroicons/vue/24/outline";
-import { TagIcon } from "@heroicons/vue/24/solid";
+import { BugAntIcon } from "@heroicons/vue/24/solid";
 import Breadcrumb from "@/Components/Breadcrumb.vue";
 import { ref } from "vue";
 import Table from "@/Components/Table/Table.vue";

@@ -56,7 +56,7 @@
                         <td class="px-4 py-3">
                             {{ item.id }}
                         </td>
-                        <td class="px-2 w-16 py-3">
+                        <td class="px-4 w-16 py-3">
                             <div class="h-12 w-12">
                                 <img
                                     :src="
@@ -70,9 +70,14 @@
                             </div>
                         </td>
                         <td
-                            class="px-2 py-3 font-medium whitespace-nowrap text-gray-900"
+                            class="px-4 py-3 font-medium whitespace-nowrap text-gray-900"
                         >
                             {{ item.name }}
+                        </td>
+                        <td
+                            class="px-4 py-3 font-medium whitespace-nowrap text-gray-900 truncate max-w-lg"
+                        >
+                            {{ item.description }}
                         </td>
                         <!-- Actions -->
                         <td class="text-sm font-light px-4 py-3">
@@ -200,13 +205,13 @@ const props = defineProps({
 const tableHeader = ref([
     {
         title: "ID",
-        class: "px-4 py-3",
+        class: "px-4 py-3 w-16",
         column: "id",
         visible: true,
     },
     {
         title: "IMAGE",
-        class: "px-2 py-3",
+        class: "px-4 py-3",
         column: null,
         visible: true,
     },
@@ -214,6 +219,12 @@ const tableHeader = ref([
         title: "NAME",
         class: "px-4 py-3",
         column: "name",
+        visible: true,
+    },
+    {
+        title: "DESCRIPTION",
+        class: "px-4 py-3",
+        column: null,
         visible: true,
     },
     {

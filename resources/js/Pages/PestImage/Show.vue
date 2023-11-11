@@ -8,7 +8,7 @@
                     class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-y-4 sm:gap-y-0"
                 >
                     <div class="flex items-center justify-start text-gray-500">
-                        <ShoppingBagIcon
+                        <BugAntIcon
                             class="h-10 w-10 transition duration-75 mr-3"
                         />
                         <h1 class="text-3xl">{{ pageTitle }}</h1>
@@ -87,7 +87,7 @@
 <script setup>
 import { Head, Link } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { ShoppingBagIcon } from "@heroicons/vue/24/solid";
+import { BugAntIcon } from "@heroicons/vue/24/solid";
 import Breadcrumb from "@/Components/Breadcrumb.vue";
 import DynamicLink from "@/Components/DynamicLink.vue";
 import DisplayData from "@/Components/DisplayData.vue";
