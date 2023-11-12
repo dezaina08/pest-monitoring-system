@@ -22,6 +22,7 @@
                                         no-initial-item
                                         :model-value="bar_chart_date_range"
                                         v-on:update:model-value="bar_chart_date_range = $event.id ?? ''"
+                                        class="min-w-[160px]"
                                     />
                                 </div>
                             </div>
