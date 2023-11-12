@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
+use App\Models\Pest;
 use App\Models\PestType;
+use App\Models\PestImage;
 use App\Services\DashboardService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,6 +23,9 @@ class DashboardController extends Controller
 
         return Inertia::render('Dashboard/Dashboard', [
             'pest_types' => DashboardService::getBarChartData($request),
+            'pests_count' => DashboardService::getPestsCount($request),
+            'pest_types_count' => DashboardService::getPestTypesCount($request),
+            'pest_images_count' => DashboardService::getPestImagesCount($request),
             'bar_chart_date_range' => $request->bar_chart_date_range ?? 3
         ]);
     }

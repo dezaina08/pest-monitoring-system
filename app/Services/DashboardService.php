@@ -45,4 +45,22 @@ class DashboardService
 
         return $pestTypes;
     }
+
+    public static function getPestsCount($request) {
+        $pestsCount = DB::table('pests')->count();
+    
+        return $pestsCount;
+    }
+
+    public static function getPestTypesCount($request) {
+        $pestTypesCount = DB::table('pest_types')->count();
+    
+        return $pestTypesCount;
+    }
+
+    public static function getPestImagesCount($request) {
+        $pestImagesCount = DB::table('pest_images')->count();
+    
+        return $pestImagesCount;
+    }
 }
