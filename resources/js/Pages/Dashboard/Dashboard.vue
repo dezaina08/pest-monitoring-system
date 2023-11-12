@@ -14,7 +14,16 @@
                                 >
                                     Pest Count
                                 </h3>
-                                <div>
+                                <div class="flex items-center gap-x-3">
+                                    <a
+                                        :href="'/pest-types-export?bar_chart_date_range=' + bar_chart_date_range"
+                                        target="_blank"
+                                        class="text-xs h-10 flex items-center px-4 border border-green-500 text-green-600 rounded-lg hover:text-green-700"
+                                        @click="exportPestCount()"
+                                    >
+                                        <DocumentArrowDownIcon class="h-5 w-5 mr-1" />
+                                        Download
+                                    </a>
                                     <ListBox
                                         :items="dateRange"
                                         no-initial-item
@@ -137,12 +146,12 @@ import {
     CategoryScale,
     LinearScale,
     ArcElement,
-} from "chart.js";
-import { BugAntIcon } from "@heroicons/vue/24/solid";
-import { Bar } from "vue-chartjs";
-import Card from "@/Components/Card.vue";
-import ListBox from "@/Components/ListBox.vue";
-import { router } from "@inertiajs/vue3";
+} from 'chart.js'
+import { Bar } from 'vue-chartjs'
+import Card from '@/Components/Card.vue'
+import ListBox from '@/Components/ListBox.vue'
+import { router } from "@inertiajs/vue3"
+import { DocumentArrowDownIcon } from "@heroicons/vue/24/solid"
 
 ChartJS.register(
     Title,
@@ -248,5 +257,9 @@ watch(
                 "?bar_chart_date_range=" + bar_chart_date_range.value;
         }
     }
-);
+)
+
+const exportPestCount = () => {
+    router.get('/pest-types-export?bar_chart_date_range=' + bar_chart_date_range)
+}
 </script>
