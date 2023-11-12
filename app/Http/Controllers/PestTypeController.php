@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Throwable;
+use App\Models\Pest;
 use Inertia\Inertia;
 use App\Models\PestType;
 use Illuminate\Http\Request;
@@ -34,7 +35,9 @@ class PestTypeController extends Controller
      */
     private function getData($request)
     {
-        $query = PestType::orderBy($this->tableName . '.' . ($request->orderBy ?? 'id'), $request->orderType ?? 'desc')
+        $query = PestType::with('media')
+
+        ->orderBy($this->tableName . '.' . ($request->orderBy ?? 'id'), $request->orderType ?? 'desc')
 
         ->when($request->search != '', function ($query) use ($request) {
                 return $query->orWhere($this->tableName . '.name', 'like', '%' . $request->search . '%');
@@ -139,6 +142,8 @@ class PestTypeController extends Controller
         if(!empty($request->id_array) && is_array($request->id_array)) {
             DB::beginTransaction();
             try {
+                Pest::whereIn('pest_type_id', $request->id_array)->delete();
+
                 PestType::destroy($request->id_array);
                 DB::commit();
                 return back();

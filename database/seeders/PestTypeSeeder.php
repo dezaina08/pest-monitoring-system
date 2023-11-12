@@ -13,7 +13,7 @@ class PestTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        PestType::factory(15)->create()
+        PestType::factory(25)->create()
         ->each(function($pestType) {
             // Add random photo for each product
             $pestType

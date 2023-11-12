@@ -152,6 +152,8 @@
                                         type="button"
                                         class="px-4 py-2 border-2 rounded-lg text-sm border-green-500 hover:border-green-700 text-green-600 hover:text-green-700 font-bold"
                                         @click="submit('done')"
+                                        :disabled="buttonDisabled"
+                                        :class="{'opacity-50': buttonDisabled}"
                                     >
                                         Done
                                     </button>

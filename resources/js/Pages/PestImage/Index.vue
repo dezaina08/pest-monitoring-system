@@ -8,7 +8,7 @@
                     class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-y-4 sm:gap-y-0"
                 >
                     <div class="flex items-center justify-start text-gray-500">
-                        <TagIcon
+                        <BugAntIcon
                             class="h-10 w-10 transition duration-75 mr-3"
                         />
                         <h1 class="text-3xl">{{ pageTitle }}</h1>
@@ -18,11 +18,11 @@
                             :href="url + '/create'"
                             class="flex items-center px-4 py-2 rounded-full border-2 border-green-500 text-green-500 font-bold focus:ring-1 ring-green-500 ring-offset-2 hover:bg-green-50s hover:text-green-600 hover:border-green-600 shadow-md transition ease-in-out duration-150"
                         >
-                            <PlusCircleIcon
+                            <CloudArrowUpIcon
                                 class="block h-5 w-5 mr-2"
                                 aria-hidden="true"
                             />
-                            New
+                            Upload
                         </Link>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                         <td class="px-4 py-3">
                             {{ item.id }}
                         </td>
-                        <td class="px-2 w-16 py-3">
+                        <td class="px-4 w-16 py-3">
                             <div class="h-12 w-12">
                                 <img
                                     :src="
@@ -70,7 +70,7 @@
                             </div>
                         </td>
                         <td
-                            class="px-2 py-3 font-medium whitespace-nowrap text-gray-900"
+                            class="px-4 py-3 font-medium whitespace-nowrap text-gray-900"
                         >
                             {{ item.date_captured }}
                         </td>
@@ -99,7 +99,7 @@
                                 >
                                     <MenuItems
                                         as="ul"
-                                        class="absolute right-8 sm:right-10 lg:right-12 min-w-[164px] origin-top-right mt-1 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none grid z-50"
+                                        class="absolute right-8 sm:right-10 lg:right-12 min-w-[164px] origin-top-right mt-1 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none grid z-30"
                                     >
                                         <MenuItem as="li">
                                             <Link
@@ -177,10 +177,10 @@ import {
     EyeIcon,
     PencilSquareIcon,
     TrashIcon,
-    PlusCircleIcon,
+    CloudArrowUpIcon,
     EllipsisHorizontalIcon,
 } from "@heroicons/vue/24/outline";
-import { TagIcon } from "@heroicons/vue/24/solid";
+import { BugAntIcon } from "@heroicons/vue/24/solid";
 import Breadcrumb from "@/Components/Breadcrumb.vue";
 import { ref } from "vue";
 import Table from "@/Components/Table/Table.vue";
@@ -194,25 +194,36 @@ const deleteItem = useDeleteItemStore();
 const props = defineProps({
     columns: Array,
     response: Object,
+    search: {
+        type: String,
+        default: "",
+    },
+    order: {
+        type: Object,
+        default: {
+            orderBy: "",
+            orderType: "",
+        },
+    },
 });
 
 // column = database column name, used for sortBy, null to disable sorting
 const tableHeader = ref([
     {
         title: "ID",
-        class: "px-4 py-3",
+        class: "px-4 py-3 w-16",
         column: "id",
         visible: true,
     },
     {
         title: "IMAGE",
-        class: "px-2 py-3",
+        class: "px-4 py-3",
         column: null,
         visible: true,
     },
     {
         title: "DATE CAPTURED",
-        class: "px-2 py-3",
+        class: "px-4 py-3",
         column: "date_captured",
         visible: true,
     },
