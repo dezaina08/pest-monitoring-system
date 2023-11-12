@@ -2,7 +2,7 @@
     <Head :title="pageTitle" />
 
     <AuthenticatedLayout>
-        <div class="pt-6 pb-12 grid px-4 sm:px-6 lg:px-8">
+        <div class="py-12 grid px-4 sm:px-6 lg:px-8">
             <div class="mb-4">
                 <div
                     class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-y-4 sm:gap-y-0"
@@ -15,9 +15,7 @@
                     </div>
                 </div>
                 <div>
-                    <Breadcrumb
-                        :current="pageTitle"
-                    />
+                    <Breadcrumb :current="pageTitle" />
                 </div>
             </div>
             <form @submit.prevent="submitForm()">
@@ -34,7 +32,9 @@
                                 </h3>
                             </template>
                             <template #card-body>
-                                <div class="flex flex-wrap gap-5 justify-center">
+                                <div
+                                    class="flex flex-wrap gap-5 justify-center"
+                                >
                                     <div
                                         v-for="(item, index) in pest_types"
                                         :key="index"
@@ -42,10 +42,14 @@
                                     >
                                         <div class="rounded-lg overflow-hidden">
                                             <img
-                                                :src="item.pest_type_photo"
+                                                :src="
+                                                    item.pest_type_photo != ''
+                                                        ? item.pest_type_photo
+                                                        : '/pest-no-image.png'
+                                                "
                                                 alt="Pest Type Photo"
                                                 class="object-contain w-full h-auto md:w-24 md:h-24"
-                                            >
+                                            />
                                         </div>
                                         <div class="text-xs py-2">
                                             <div class="mb-1 w-24 truncate">
@@ -55,14 +59,19 @@
                                                 class="flex items-center rounded-md shadow-sm ring-1 focus-within:ring-2 ring-inset ring-gray-300 focus-within:ring-inset focus-within:ring-blue-600 h-6 w-full md:w-24"
                                                 :class="[
                                                     item.count > 0
-                                                    ? 'bg-amber-200'
-                                                    : 'bg-white'
+                                                        ? 'bg-amber-200'
+                                                        : 'bg-white',
                                                 ]"
                                             >
                                                 <button
                                                     type="button"
                                                     class="items-center px-2 text-gray-400 sm:text-sm hover:text-gray-800"
-                                                    @click="updateItemQuantity(index, 'decrement')"
+                                                    @click="
+                                                        updateItemQuantity(
+                                                            index,
+                                                            'decrement'
+                                                        )
+                                                    "
                                                 >
                                                     <MinusIcon
                                                         class="h-4 w-4"
@@ -77,17 +86,24 @@
                                                     v-model="item.count"
                                                     required
                                                     placeholder="Qty"
-                                                    @input="calculateEachItemTotal(index)"
+                                                    @input="
+                                                        calculateEachItemTotal(
+                                                            index
+                                                        )
+                                                    "
                                                     disabled
-                                                >
+                                                />
                                                 <button
                                                     type="button"
                                                     class="items-center px-2 text-gray-400 sm:text-sm hover:text-gray-800"
-                                                    @click="updateItemQuantity(index, 'increment')"
+                                                    @click="
+                                                        updateItemQuantity(
+                                                            index,
+                                                            'increment'
+                                                        )
+                                                    "
                                                 >
-                                                    <PlusIcon
-                                                        class="h-4 w-4"
-                                                    />
+                                                    <PlusIcon class="h-4 w-4" />
                                                 </button>
                                             </div>
                                         </div>
@@ -112,17 +128,18 @@
                                     placeholder="Date Captured"
                                 />
                             </div>
-                            <div
-                                v-if="props.pest_images.length > 0"
-                            >
+                            <div v-if="props.pest_images.length > 0">
                                 <div class="flex justify-center mb-5">
                                     <img
-                                        :src="props.pest_images[currentPestImageIndex].pest_image_photo"
+                                        :src="
+                                            props.pest_images[
+                                                currentPestImageIndex
+                                            ].pest_image_photo
+                                        "
                                         alt=""
                                         class="object-contain rounded-lg"
                                         width="250"
-                                    >
-
+                                    />
                                 </div>
                                 <div class="flex justify-between items-center">
                                     <button
@@ -130,20 +147,28 @@
                                         class="px-4 py-2 border-2 border-gray-400 hover:border-gray-700 rounded-lg text-sm font-bold text-gray-600 hover:text-gray-700"
                                         @click="submit('prev')"
                                         :disabled="buttonDisabled"
-                                        :class="{'opacity-50': buttonDisabled}"
+                                        :class="{
+                                            'opacity-50': buttonDisabled,
+                                        }"
                                     >
                                         Prev
                                     </button>
                                     <div>
-                                        {{ currentPestImageIndex + 1 }} / {{ props.pest_images.length }}
+                                        {{ currentPestImageIndex + 1 }} /
+                                        {{ props.pest_images.length }}
                                     </div>
                                     <button
-                                        v-if="currentPestImageIndex != props.pest_images.length - 1"
+                                        v-if="
+                                            currentPestImageIndex !=
+                                            props.pest_images.length - 1
+                                        "
                                         type="button"
                                         class="px-4 py-2 border-2 rounded-lg text-sm border-green-500 hover:border-green-700 text-green-600 hover:text-green-700 font-bold"
                                         @click="submit('next')"
                                         :disabled="buttonDisabled"
-                                        :class="{'opacity-50': buttonDisabled}"
+                                        :class="{
+                                            'opacity-50': buttonDisabled,
+                                        }"
                                     >
                                         Next
                                     </button>
@@ -153,7 +178,9 @@
                                         class="px-4 py-2 border-2 rounded-lg text-sm border-green-500 hover:border-green-700 text-green-600 hover:text-green-700 font-bold"
                                         @click="submit('done')"
                                         :disabled="buttonDisabled"
-                                        :class="{'opacity-50': buttonDisabled}"
+                                        :class="{
+                                            'opacity-50': buttonDisabled,
+                                        }"
                                     >
                                         Done
                                     </button>
@@ -175,11 +202,7 @@
 import { Head, useForm } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import TextInput from "@/Components/TextInput.vue";
-import {
-    BugAntIcon,
-    MinusIcon,
-    PlusIcon,
-} from "@heroicons/vue/24/solid";
+import { BugAntIcon, MinusIcon, PlusIcon } from "@heroicons/vue/24/solid";
 import Breadcrumb from "@/Components/Breadcrumb.vue";
 import TextareaInput from "@/Components/TextareaInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
@@ -190,8 +213,8 @@ import { router } from "@inertiajs/vue3";
 import { ref, watch, computed, onMounted } from "vue";
 import InputError from "@/Components/InputError.vue";
 import Card from "@/Components/Card.vue";
-import {useToast} from 'vue-toast-notification';
-import 'vue-toast-notification/dist/theme-sugar.css';
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
 
 const moduleName = "Counting";
 const url = "pests";
@@ -210,13 +233,13 @@ const props = defineProps({
     },
     date_captured: {
         type: String,
-        default: '',
+        default: "",
     },
     pest_image_id: {
         type: null,
-        default: '',
-    }
-})
+        default: "",
+    },
+});
 
 // Deep Copy
 const date_captured =
@@ -229,113 +252,128 @@ const pest_types =
         ? ref(JSON.parse(JSON.stringify(props.pest_types)))
         : ref([]);
 
-const additionalArgument = ref('')
+const additionalArgument = ref("");
 
 watch(
     () => date_captured.value,
     (newValue, oldValue) => {
         if (newValue != "") {
-            additionalArgument.value = "?date_captured=" + date_captured.value
+            additionalArgument.value = "?date_captured=" + date_captured.value;
         }
     }
-)
+);
 
 watch(
     () => additionalArgument.value,
     (newValue, oldValue) => {
-        router.get("/" + url + additionalArgument.value)
+        router.get("/" + url + additionalArgument.value);
     }
-)
+);
 
-const submit = (action = 'prev') => {
-
-    if ((action == 'prev' && currentPestImageIndex.value == 0) ||
-        (action == 'next' && currentPestImageIndex.value == props.pest_images.length - 1)) {
-        return false
+const submit = (action = "prev") => {
+    if (
+        (action == "prev" && currentPestImageIndex.value == 0) ||
+        (action == "next" &&
+            currentPestImageIndex.value == props.pest_images.length - 1)
+    ) {
+        return false;
     }
 
-    axios.post("/" + url, {
-        pest_image_id: pestImageId.value,
-        pest_types: pest_types.value,
-        date_captured: date_captured.value,
-    })
-    .then(function (response) {
-        if (action == 'prev') {
-            prevPestImage()
-        } else if (action == 'next') {
-            nextPestImage()
-        }
-        $toast.open({
-            type: 'success',
-            message: 'Pest count saved!',
-            position: 'top-right'
+    axios
+        .post("/" + url, {
+            pest_image_id: pestImageId.value,
+            pest_types: pest_types.value,
+            date_captured: date_captured.value,
         })
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
-}
+        .then(function (response) {
+            if (action == "prev") {
+                prevPestImage();
+            } else if (action == "next") {
+                nextPestImage();
+            }
+            $toast.open({
+                type: "success",
+                message: "Pest count saved!",
+                position: "top-right",
+            });
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+};
 
-const currentPestImageIndex = ref(props.pest_images.findIndex(object => {
-                                    return object.id == props.pest_image_id
-                                }))
+const currentPestImageIndex = ref(
+    props.pest_images.findIndex((object) => {
+        return object.id == props.pest_image_id;
+    })
+);
 
 // Set current pests count
 onMounted(() => {
-    props.pest_images[currentPestImageIndex.value]?.pests.forEach(pestObject => {
-        pest_types.value.find(pestTypeObject => {
-            if (pestObject.pest_type_id == pestTypeObject.id) {
-                pestTypeObject.count = pestObject.count
-                return true
-            }
-        })
-    })
-})
+    props.pest_images[currentPestImageIndex.value]?.pests.forEach(
+        (pestObject) => {
+            pest_types.value.find((pestTypeObject) => {
+                if (pestObject.pest_type_id == pestTypeObject.id) {
+                    pestTypeObject.count = pestObject.count;
+                    return true;
+                }
+            });
+        }
+    );
+});
 
 let pestImageId = computed(() => {
-    return props.pest_images[currentPestImageIndex.value]['id']
-})
+    return props.pest_images[currentPestImageIndex.value]["id"];
+});
 
 let buttonDisabled = computed(() => {
-    let disabled = true
-    pest_types.value.forEach(element => {
+    let disabled = true;
+    pest_types.value.forEach((element) => {
         if (element.count > 0) {
-            disabled =  false
+            disabled = false;
         }
-    })
-    return disabled
-})
+    });
+    return disabled;
+});
 
 const prevPestImage = () => {
     if (currentPestImageIndex.value != 0) {
-        currentPestImageIndex.value -= 1
-        additionalArgument.value = "?date_captured=" + date_captured.value + '&pest_image_id=' + pestImageId.value
+        currentPestImageIndex.value -= 1;
+        additionalArgument.value =
+            "?date_captured=" +
+            date_captured.value +
+            "&pest_image_id=" +
+            pestImageId.value;
     }
-}
+};
 
 const nextPestImage = () => {
     if (currentPestImageIndex.value != props.pest_images.length - 1) {
-        currentPestImageIndex.value += 1
-        additionalArgument.value = "?date_captured=" + date_captured.value + '&pest_image_id=' + pestImageId.value
+        currentPestImageIndex.value += 1;
+        additionalArgument.value =
+            "?date_captured=" +
+            date_captured.value +
+            "&pest_image_id=" +
+            pestImageId.value;
     }
-}
+};
 
 const updateItemQuantity = (index, method) => {
-    let item = pest_types.value[index]
+    let item = pest_types.value[index];
 
     if (method == "increment") {
-        if (item.count == '') {
-            item.count = 0
+        if (item.count == "") {
+            item.count = 0;
         }
 
-        item.count = parseInt(item.count) + 1
+        item.count = parseInt(item.count) + 1;
     } else {
-        if (item.count == '' || parseInt(item.count) < 1) {
-            item.count = 0
+        if (item.count == "" || parseInt(item.count) < 1) {
+            item.count = 0;
         } else {
-            item.count = parseInt(item.count) - 1
+            item.count = parseInt(item.count) - 1;
         }
     }
-}
+};
 </script>
 <style lang=""></style>
