@@ -54,4 +54,10 @@ class Pest extends Model implements HasMedia
     {
         return $this->belongsTo(PestType::class);
     }
+
+    public static function getPestsCount($request) {
+        $pestsCount = Pest::sum('count');
+        
+        return $pestsCount;
+    }
 }
