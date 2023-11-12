@@ -79,7 +79,7 @@
                                 (model.pest_type_photo != null) &
                                 (model.pest_type_photo != '')
                                     ? model.pest_type_photo
-                                    : '/product-no-image.png'
+                                    : '/pest-no-image.png'
                             "
                             class="w-52 h-52 object-cover rounded-md"
                         />
