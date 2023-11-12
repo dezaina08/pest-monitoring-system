@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\PestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PestTypeController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PestImageController;
 
 /*
@@ -35,14 +36,15 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::get('/', function () {
+        return redirect(route('dashboard.index'));
+    });
 
     Route::resources([
         'pest-types' => PestTypeController::class,
         'pest-images' => PestImageController::class,
         'pests' => PestController::class,
+        'dashboard' => DashboardController::class,
     ]);
 });
 
