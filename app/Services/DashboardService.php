@@ -47,7 +47,7 @@ class DashboardService
     }
 
     public static function getPestsCount($request) {
-        $pestsCount = DB::table('pests')->count();
+        $pestsCount = DB::table('pests')->sum('count');
     
         return $pestsCount;
     }
