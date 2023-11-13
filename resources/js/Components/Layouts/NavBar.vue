@@ -7,11 +7,16 @@
             <div class="flex flex-wrap justify-between items-center w-full">
                 <div class="flex justify-start items-center">
                     <a href="/" class="flex items-center justify-between mr-4">
-                        <img
+                        <!-- <img
                             src="https://flowbite.s3.amazonaws.com/logo.svg"
                             class="mr-3 h-8"
                             alt="Flowbite Logo"
-                        />
+                        /> -->
+                        <img
+                            src="/capsu-logo.png"
+                            alt=""
+                            class="h-8"
+                        >
                         <span
                             class="self-center text-2xl font-semibold whitespace-nowrap max-w-[120px] md:max-w-3xl truncate"
                         >
