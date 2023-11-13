@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PestTypeExport;
 use Throwable;
 use App\Models\Pest;
 use Inertia\Inertia;
 use App\Models\PestType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\PestType\StorePestTypeRequest;
 use App\Http\Requests\PestType\UpdatePestTypeRequest;
 
@@ -152,5 +154,13 @@ class PestTypeController extends Controller
                 return $e;
             }
         }
+    }
+
+    /**
+     * Export data
+     */
+    public function export(Request $request)
+    {
+        return Excel::download(new PestTypeExport($request->all()), 'pest_types.xlsx');
     }
 }

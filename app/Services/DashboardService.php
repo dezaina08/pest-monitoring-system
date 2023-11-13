@@ -12,21 +12,21 @@ class DashboardService
             ->select('pests.*')
             ->leftJoin('pest_images', 'pests.pest_image_id', '=', 'pest_images.id');
 
-        if ($request->bar_chart_date_range == 1) {
+        if ($request['bar_chart_date_range'] == 1) {
             // Today
             $filteredPests->where('pest_images.date_captured', '=', date('Y-m-d'));
-        } else if ($request->bar_chart_date_range == 2) {
+        } else if ($request['bar_chart_date_range'] == 2) {
             // Yesterday
             $filteredPests->where('pest_images.date_captured', '=', date('Y-m-d', strtotime('-1 day')));
-        } else if ($request->bar_chart_date_range == 3) {
+        } else if ($request['bar_chart_date_range'] == 3) {
             // Last 7 days
             $filteredPests->where('pest_images.date_captured', '>=', date('Y-m-d', strtotime('-7 day')))
                 ->where('pest_images.date_captured', '<=', date('Y-m-d'));
-        } else if ($request->bar_chart_date_range == 4) {
+        } else if ($request['bar_chart_date_range'] == 4) {
             // Last 30 days
             $filteredPests->where('pest_images.date_captured', '>=', date('Y-m-d', strtotime('-30 day')))
                 ->where('pest_images.date_captured', '<=', date('Y-m-d'));
-        } else if ($request->bar_chart_date_range == 5) {
+        } else if ($request['bar_chart_date_range'] == 5) {
             // Last 90 days
             $filteredPests->where('pest_images.date_captured', '>=', date('Y-m-d', strtotime('-90 day')))
                 ->where('pest_images.date_captured', '<=', date('Y-m-d'));

@@ -46,6 +46,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         'pests' => PestController::class,
         'dashboard' => DashboardController::class,
     ]);
+
+    // Export
+    Route::get('pest-types-export/', [PestTypeController::class, 'export']);
+
 });
 
 require __DIR__.'/auth.php';

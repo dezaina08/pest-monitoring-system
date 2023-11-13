@@ -4,7 +4,7 @@
         v-model="selected"
         @update:modelValue="value => emit('update:modelValue', value)"
     >
-        <div class="relative mt-1">
+        <div class="relative">
             <ListboxButton class="relative w-full cursor-default rounded-md border border-gray-300 bg-white pl-3 pr-10 text-left shadow-sm focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600 sm:text-sm h-10">
                 <span class="flex items-center">
                     <span
