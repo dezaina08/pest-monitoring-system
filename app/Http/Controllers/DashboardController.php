@@ -19,8 +19,6 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-
-
         return Inertia::render('Dashboard/Dashboard', [
             'pest_types' => DashboardService::getBarChartData($request),
             'pests_count' => DashboardService::getPestsCount($request),

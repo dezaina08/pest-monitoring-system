@@ -115,20 +115,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="">
-                    <Card>
-                        <template #card-header>
-                            <h3
-                                class="text-lg font-semibold text-gray-900 whitespace-nowrap md:mb-0 mb-3"
-                            >
-                                Pest Count
-                            </h3>
-                        </template>
-                        <template #card-body>
-
-                        </template>
-                    </Card>
-                </div> -->
             </div>
         </div>
     </AuthenticatedLayout>
@@ -152,6 +138,7 @@ import Card from '@/Components/Card.vue'
 import ListBox from '@/Components/ListBox.vue'
 import { router } from "@inertiajs/vue3"
 import { DocumentArrowDownIcon } from "@heroicons/vue/24/solid"
+import { BugAntIcon } from "@heroicons/vue/24/solid";
 
 ChartJS.register(
     Title,
@@ -171,7 +158,7 @@ const props = defineProps({
         default: [],
     },
     pests_count: {
-        type: Number,
+        type: null,
         default: 0,
     },
     pest_types_count: {
