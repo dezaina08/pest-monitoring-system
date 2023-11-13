@@ -15,15 +15,6 @@
                                     Pest Count
                                 </h3>
                                 <div class="flex items-center gap-x-3">
-                                    <a
-                                        :href="'/pest-types-export?bar_chart_date_range=' + bar_chart_date_range"
-                                        target="_blank"
-                                        class="text-xs h-10 flex items-center px-4 border border-green-500 text-green-600 rounded-lg hover:text-green-700"
-                                        @click="exportPestCount()"
-                                    >
-                                        <DocumentArrowDownIcon class="h-5 w-5 mr-1" />
-                                        Download
-                                    </a>
                                     <ListBox
                                         :items="dateRange"
                                         no-initial-item
@@ -34,6 +25,15 @@
                                         "
                                         class="min-w-[160px]"
                                     />
+                                    <a
+                                        :href="'/pest-types-export?bar_chart_date_range=' + bar_chart_date_range"
+                                        target="_blank"
+                                        class="text-xs h-10 flex items-center px-4 border border-green-500 text-green-600 rounded-lg hover:text-green-700"
+                                        @click="exportPestCount()"
+                                    >
+                                        <DocumentArrowDownIcon class="h-5 w-5 mr-1" />
+                                        Export
+                                    </a>
                                 </div>
                             </div>
                         </template>
