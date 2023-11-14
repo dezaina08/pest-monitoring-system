@@ -26,7 +26,6 @@ class Pesticide extends Model
      * @var array
      */
     protected $appends = [
-        'pest_type_photo',
         'created_at_for_humans',
         'created_at_iso_format',
         'updated_at_for_humans',

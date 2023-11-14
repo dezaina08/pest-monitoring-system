@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PestTypeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PestImageController;
+use App\Http\Controllers\PesticideController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         'pest-images' => PestImageController::class,
         'pests' => PestController::class,
         'dashboard' => DashboardController::class,
+        'pesticides' => PesticideController::class,
     ]);
 
     // Export
