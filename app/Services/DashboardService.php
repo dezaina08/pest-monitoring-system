@@ -10,43 +10,22 @@ class DashboardService
     public static function getBarChartData($request) {
         $filteredPests = DB::table('pests')
             ->select('pests.*')
-            ->leftJoin('pest_images', 'pests.pest_image_id', '=', 'pest_images.id');
-
-        $request['bar_chart_date_range'] = $request['bar_chart_date_range'] ?? 3;
-
-        if ($request['bar_chart_date_range'] == 1) {
-            // Today
-            // dd('Today');
-            $filteredPests->where('pest_images.date_captured', '=', date('Y-m-d'));
-        } else if ($request['bar_chart_date_range'] == 2) {
-            // Yesterday
-            // dd('Yesterday');
-            $filteredPests->where('pest_images.date_captured', '=', date('Y-m-d', strtotime('-1 day')));
-        } else if ($request['bar_chart_date_range'] == 3) {
-            // Last 7 days
-            // dd('Last 7 days');
-            $filteredPests->where('pest_images.date_captured', '>=', date('Y-m-d', strtotime('-7 day')))
-                ->where('pest_images.date_captured', '<=', date('Y-m-d'));
-        } else if ($request['bar_chart_date_range'] == 4) {
-            // Last 30 days
-            // dd('Last 30 days');
-            $filteredPests->where('pest_images.date_captured', '>=', date('Y-m-d', strtotime('-30 day')))
-                ->where('pest_images.date_captured', '<=', date('Y-m-d'));
-        } else if ($request['bar_chart_date_range'] == 5) {
-            // Last 90 days
-            // dd('Last 90 days');
-            $filteredPests->where('pest_images.date_captured', '>=', date('Y-m-d', strtotime('-90 day')))
-                ->where('pest_images.date_captured', '<=', date('Y-m-d'));
-        }
+            ->leftJoin('pest_images', 'pests.pest_image_id', '=', 'pest_images.id')
+            // If no bar_chart_date_from is provided, use start of month
+            ->where('pest_images.date_captured', '>=', $request->bar_chart_date_from ?? date('Y-m-01'))
+            // If no bar_chart_date_to is provided, use end of month
+            ->where('pest_images.date_captured', '<=', $request->bar_chart_date_to ?? date('Y-m-t'));
 
         $pestTypes = DB::table('pest_types')
             ->select(
                 'pest_types.*',
                 DB::raw('SUM(filtered_pests.count) as pests_count'),
             )
+            // Join first query
             ->leftJoinSub($filteredPests, 'filtered_pests', function (JoinClause $join) {
                 $join->on('pest_types.id', '=', 'filtered_pests.pest_type_id');
             })
+            ->orderByDesc('pests_count')
             ->groupBy('pest_types.id')
             ->get();
 

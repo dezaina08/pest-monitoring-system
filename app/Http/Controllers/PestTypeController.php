@@ -161,30 +161,6 @@ class PestTypeController extends Controller
      */
     public function export(Request $request)
     {
-        $dateRange = "";
-        switch ($request['bar_chart_date_range']) {
-            case 1:
-                $dateRange = "Today";
-                break;
-            case 2:
-                $dateRange = "Yesterday";
-                break;
-            case 3:
-                $dateRange = "Last 7 Days";
-                break;
-            case 4:
-                $dateRange = "Last 30 Days";
-                break;
-            case 5:
-                $dateRange = "Last 90 Days";
-                break;
-            case 6:
-                $dateRange = "All Records";
-                break;
-            default:
-                $dateRange = "All Records";
-                break;
-        }
-        return Excel::download(new PestTypeExport($request->all()), 'Pest Count - ' . date('Y-m-d') . ' - ' . $dateRange . '.xlsx');
+        return Excel::download(new PestTypeExport($request), 'Pest Count - ' . ($request->bar_chart_date_from ?? date('Y-m-d')) . ' - ' . ($request->bar_chart_date_to ?? date('Y-m-d')) . '.xlsx');
     }
 }

@@ -48,7 +48,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     ]);
 
     // Export
-    Route::get('pest-types-export/', [PestTypeController::class, 'export']);
+    Route::get('export-pest-types/', [PestTypeController::class, 'export']);
 
 });
 

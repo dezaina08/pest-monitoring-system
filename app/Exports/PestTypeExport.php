@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Models\PestType;
 use App\Services\DashboardService;
+use Illuminate\Http\Request;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -13,7 +14,7 @@ class PestTypeExport
 {
     protected $request;
 
-    public function __construct(Array $request)
+    public function __construct(Request $request)
     {
         $this->request = $request;
     }
@@ -31,7 +32,6 @@ class PestTypeExport
         return [
             'ID',
             'Name',
-            'Description',
             'Count',
         ];
     }
@@ -44,7 +44,6 @@ class PestTypeExport
         return [
             $pest_type->id,
             $pest_type->name,
-            $pest_type->description,
             $pest_type->pests_count,
         ];
     }
