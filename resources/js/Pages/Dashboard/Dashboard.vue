@@ -15,21 +15,36 @@
                                     Pest Count
                                 </h3>
                                 <div class="flex items-center gap-x-3">
-                                    <ListBox
-                                        :items="dateRange"
-                                        no-initial-item
-                                        :model-value="bar_chart_date_range"
-                                        v-on:update:model-value="
-                                            bar_chart_date_range =
-                                                $event.id ?? ''
-                                        "
-                                        class="min-w-[160px]"
-                                    />
+                                    <VueDatePicker
+                                        v-model="barChartDate"
+                                        range
+                                        format="yyyy-MM-dd"
+                                        model-type="yyyy-MM-dd"
+                                        week-start="0"
+                                        :enable-time-picker="false"
+                                        :preset-dates="presetDates"
+                                        :partial-range="false"
+                                        placeholder="Enter date range"
+                                        @update:model-value="setDate"
+                                    >
+                                        <template
+                                            #preset-date-range-button="{ label, value, presetDate }"
+                                        >
+                                            <span
+                                                role="button"
+                                                :tabindex="0"
+                                                @click="presetDate(value)"
+                                                @keyup.enter.prevent="presetDate(value)"
+                                                @keyup.space.prevent="presetDate(value)"
+                                            >
+                                            {{ label }}
+                                            </span>
+                                        </template>
+                                    </VueDatePicker>
                                     <a
-                                        :href="'/pest-types-export?bar_chart_date_range=' + bar_chart_date_range"
+                                        :href="'/export-pest-types?bar_chart_date_from=' + bar_chart_date_from + '&bar_chart_date_to=' + bar_chart_date_to"
                                         target="_blank"
-                                        class="text-xs h-10 flex items-center px-4 border border-green-500 text-green-600 rounded-lg hover:text-green-700"
-                                        @click="exportPestCount()"
+                                        class="text-xs h-10 flex items-center px-4 border border-green-500 text-green-600 rounded hover:text-green-700"
                                     >
                                         <DocumentArrowDownIcon class="h-5 w-5 mr-1" />
                                         Export
@@ -138,7 +153,11 @@ import Card from '@/Components/Card.vue'
 import ListBox from '@/Components/ListBox.vue'
 import { router } from "@inertiajs/vue3"
 import { DocumentArrowDownIcon } from "@heroicons/vue/24/solid"
-import { BugAntIcon } from "@heroicons/vue/24/solid";
+import { BugAntIcon } from "@heroicons/vue/24/solid"
+import TextInput from "@/Components/TextInput.vue"
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+import { endOfWeek, endOfMonth, endOfYear, startOfWeek, startOfMonth, startOfYear, subDays, subWeeks, subMonths } from 'date-fns';
 
 ChartJS.register(
     Title,
@@ -169,7 +188,15 @@ const props = defineProps({
         type: Number,
         default: 0,
     },
-    bar_chart_date_range: {
+    bar_chart_filter_type: {
+        type: null,
+        default: "",
+    },
+    bar_chart_date_from: {
+        type: null,
+        default: "",
+    },
+    bar_chart_date_to: {
         type: null,
         default: "",
     },
@@ -178,10 +205,20 @@ const props = defineProps({
 const additionalArgument = ref("");
 
 // Deep Copy
-const bar_chart_date_range =
-    props.bar_chart_date_range != ""
-        ? ref(JSON.parse(JSON.stringify(props.bar_chart_date_range)))
+const bar_chart_filter_type =
+    props.bar_chart_filter_type != ""
+        ? ref(JSON.parse(JSON.stringify(props.bar_chart_filter_type)))
         : ref("");
+
+const bar_chart_date_from =
+    props.bar_chart_date_from != ""
+        ? ref(JSON.parse(JSON.stringify(props.bar_chart_date_from)))
+        : ref(startOfMonth(new Date()));
+
+const bar_chart_date_to =
+    props.bar_chart_date_to != ""
+        ? ref(JSON.parse(JSON.stringify(props.bar_chart_date_to)))
+        : ref(endOfMonth(new Date()));
 
 const pestTypeData = computed(() => {
     return props.pest_types.map((object) => object.pests_count);
@@ -202,32 +239,49 @@ const barChartData = ref({
     ],
 });
 
-const dateRange = ref([
+const barChartDate = ref([
+    bar_chart_date_from.value,
+    bar_chart_date_to.value
+]);
+
+const presetDates = ref([
     {
-        id: 1,
-        name: "Today",
+        label: 'Today',
+        value: [new Date(), new Date()]
     },
     {
-        id: 2,
-        name: "Yesterday",
+        label: 'Yesterday',
+        value: [subDays(new Date(), 1), subDays(new Date(), 1)],
     },
     {
-        id: 3,
-        name: "Last 7 days",
+        label: 'This Week',
+        value: [startOfWeek(new Date()), endOfWeek(new Date())],
     },
     {
-        id: 4,
-        name: "Last 30 days",
+        label: 'Last Week',
+        value: [startOfWeek(subWeeks(new Date(), 1)), endOfWeek(subWeeks(new Date(), 1))],
     },
     {
-        id: 5,
-        name: "Last 90 days",
+        label: 'This month',
+        value: [startOfMonth(new Date()), endOfMonth(new Date())]
     },
     {
-        id: 6,
-        name: "All",
+        label: 'Last month',
+        value: [startOfMonth(subMonths(new Date(), 1)), endOfMonth(subMonths(new Date(), 1))],
+    },
+    {
+        label: 'This year',
+        value: [startOfYear(new Date()), endOfYear(new Date())]
     },
 ]);
+
+const setDate = (value) => {
+    if (value != null) {
+        bar_chart_date_from.value = value[0]
+        bar_chart_date_to.value = value[1]
+    }
+}
+
 
 watch(
     () => additionalArgument.value,
@@ -237,16 +291,15 @@ watch(
 );
 
 watch(
-    () => bar_chart_date_range.value,
+    () => barChartDate.value,
     (newValue, oldValue) => {
-        if (newValue != "") {
+        if (newValue != null) {
             additionalArgument.value =
-                "?bar_chart_date_range=" + bar_chart_date_range.value;
+                "?bar_chart_date_from=" + bar_chart_date_from.value
+                + "&bar_chart_date_to=" + bar_chart_date_to.value
+        } else {
+            router.get("/" + url)
         }
     }
 )
-
-const exportPestCount = () => {
-    router.get('/pest-types-export?bar_chart_date_range=' + bar_chart_date_range)
-}
 </script>
