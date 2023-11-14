@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AdminUserDatabaseSeeder::class,
+            PesticideSeeder::class,
             PestTypeSeeder::class,
             PestImageSeeder::class,
             PestSeeder::class,
