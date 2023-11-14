@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Pesticide;
 
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\File;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdatePesticideRequest extends FormRequest
@@ -11,7 +13,7 @@ class UpdatePesticideRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,12 @@ class UpdatePesticideRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => [
+                'required',
+                'max:50',
+                Rule::unique('pesticides')->ignore($this->id)
+            ],
+            'description' => 'nullable',
         ];
     }
 }

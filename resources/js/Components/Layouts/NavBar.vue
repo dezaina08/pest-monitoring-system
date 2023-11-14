@@ -12,11 +12,7 @@
                             class="mr-3 h-8"
                             alt="Flowbite Logo"
                         /> -->
-                        <img
-                            src="/capsu-logo.png"
-                            alt=""
-                            class="h-8"
-                        >
+                        <img src="/capsu-logo.png" alt="" class="h-8" />
                         <span
                             class="self-center text-2xl font-semibold whitespace-nowrap max-w-[120px] md:max-w-3xl truncate"
                         >
@@ -49,6 +45,20 @@
                             ]"
                         >
                             Pest Types
+                        </Link>
+                    </div>
+
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <Link
+                            class="flex w-full justify-between rounded-lg px-4 py-2 text-left font-medium hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-gray-500 focus-visible:ring-opacity-75"
+                            :href="'/pesticides'"
+                            :class="[
+                                $page.url.startsWith('/pesticides')
+                                    ? 'text-gray-600 bg-sky-100 hover:bg-sky-200'
+                                    : 'text-gray-700 hover:bg-gray-100',
+                            ]"
+                        >
+                            Pesticides
                         </Link>
                     </div>
 
