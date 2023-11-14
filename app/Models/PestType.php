@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PestType extends Model implements HasMedia
@@ -64,5 +65,13 @@ class PestType extends Model implements HasMedia
     public function pests(): HasMany
     {
         return $this->hasMany(Pest::class);
+    }
+
+    /**
+     * Get pesticide.
+     */
+    public function pesticide(): BelongsTo
+    {
+        return $this->belongsTo(Pesticide::class);
     }
 }
