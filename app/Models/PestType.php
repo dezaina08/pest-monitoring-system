@@ -24,6 +24,7 @@ class PestType extends Model implements HasMedia
     protected $fillable = [
         'name',
         'description',
+        'pesticide_id',
     ];
 
     /**

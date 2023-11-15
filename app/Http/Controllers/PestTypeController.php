@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\PestTypeExport;
 use Throwable;
 use App\Models\Pest;
 use Inertia\Inertia;
 use App\Models\PestType;
+use App\Models\Pesticide;
 use Illuminate\Http\Request;
+use App\Exports\PestTypeExport;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\PestType\StorePestTypeRequest;
@@ -37,7 +38,7 @@ class PestTypeController extends Controller
      */
     private function getData($request)
     {
-        $query = PestType::with('media')
+        $query = PestType::with('media', 'pesticide')
 
         ->orderBy($this->tableName . '.' . ($request->orderBy ?? 'id'), $request->orderType ?? 'desc')
 
@@ -55,8 +56,9 @@ class PestTypeController extends Controller
      */
     public function create()
     {
+        $pesticides = Pesticide::all();
         return Inertia::render('PestType/Create', [
-            //
+            'pesticides' => $pesticides,
         ]);
     }
 
@@ -90,7 +92,7 @@ class PestTypeController extends Controller
     public function show(PestType $pestType)
     {
         return Inertia::render('PestType/Show', [
-            'model' => $pestType
+            'model' => $pestType->load('pesticide')
         ]);
     }
 
@@ -99,8 +101,10 @@ class PestTypeController extends Controller
      */
     public function edit(PestType $pestType)
     {
+        $pesticides = Pesticide::all();
         return Inertia::render('PestType/Edit', [
-            'model' => $pestType
+            'model' => $pestType,
+            'pesticides' => $pesticides,
         ]);
     }
 
