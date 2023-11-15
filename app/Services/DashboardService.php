@@ -19,8 +19,10 @@ class DashboardService
         $pestTypes = DB::table('pest_types')
             ->select(
                 'pest_types.*',
+                'pesticides.name as pesticide',
                 DB::raw('SUM(filtered_pests.count) as pests_count'),
             )
+            ->join('pesticides', 'pest_types.pesticide_id', '=', 'pesticides.id')
             // Join first query
             ->leftJoinSub($filteredPests, 'filtered_pests', function (JoinClause $join) {
                 $join->on('pest_types.id', '=', 'filtered_pests.pest_type_id');
@@ -48,5 +50,11 @@ class DashboardService
         $pestImagesCount = DB::table('pest_images')->count();
 
         return $pestImagesCount;
+    }
+
+    public static function getPesticidesCount($request) {
+        $pesticidesCount = DB::table('pesticides')->count();
+
+        return $pesticidesCount;
     }
 }
