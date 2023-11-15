@@ -86,6 +86,26 @@
                                     </div>
                                 </div>
                                 <div
+                                    class="grid gap-4 md:grid-cols-2 sm:gap-6 mb-5"
+                                >
+                                    <div class="">
+                                        <InputLabel
+                                            for="pesticide_id"
+                                            value="Pesticide"
+                                        />
+                                        <ListBox
+                                            id="pesticide_id"
+                                            :items="props.pesticides"
+                                            :model-value="form.pesticide_id"
+                                            v-on:update:model-value="form.pesticide_id = $event.id"
+                                        />
+                                        <InputError
+                                            class="mt-1"
+                                            :message="form.errors.pesticide_id"
+                                        />
+                                    </div>
+                                </div>
+                                <div
                                     class="flex flex-col md:flex-row gap-3 md:gap-2"
                                 >
                                     <PrimaryButton :disabled="form.processing">
@@ -195,16 +215,22 @@ import { router } from "@inertiajs/vue3";
 import { ref } from "vue";
 import InputError from "@/Components/InputError.vue";
 import Card from "@/Components/Card.vue";
+import ListBox from "@/Components/ListBox.vue";
 
 const moduleName = "Pest Types";
 const url = "pest-types";
 const pageTitle = "Create Pest Types";
+
+const props = defineProps({
+    pesticides: Array,
+})
 
 const form = useForm({
     photo: null,
     remove_photo: false,
     name: "",
     description: "",
+    pesticide_id: "",
 });
 
 let submitForm = (addAnother = false) => {

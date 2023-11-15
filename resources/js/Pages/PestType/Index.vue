@@ -77,7 +77,7 @@
                         <td
                             class="px-4 py-3 font-medium whitespace-nowrap text-gray-900 truncate max-w-lg"
                         >
-                            {{ item.description }}
+                            {{ item.pesticide.name }}
                         </td>
                         <!-- Actions -->
                         <td class="text-sm font-light px-4 py-3">
@@ -233,7 +233,7 @@ const tableHeader = ref([
         visible: true,
     },
     {
-        title: "DESCRIPTION",
+        title: "PESTICIDE",
         class: "px-4 py-3",
         column: null,
         visible: true,
