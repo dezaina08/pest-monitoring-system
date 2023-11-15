@@ -111,7 +111,7 @@ class PesticideController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pesticide $pesticide)
+    public function destroy(Request $request)
     {
         if(!empty($request->id_array) && is_array($request->id_array)) {
             DB::beginTransaction();
