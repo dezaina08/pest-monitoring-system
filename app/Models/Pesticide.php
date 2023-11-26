@@ -17,7 +17,7 @@ class Pesticide extends Model
      */
     protected $fillable = [
         'name',
-        'description',
+        'target pests',
     ];
 
     /**
