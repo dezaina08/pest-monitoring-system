@@ -77,9 +77,7 @@
                             <div
                                 class="flex items-center px-2.5 py-0.5 text-base font-semibold text-gray-500 dark:text-gray-500 text-center"
                             >
-                                <BugAntIcon
-                                    class="h-10 w-10 transition duration-75 mr-3"
-                                />
+                                <img src="/pest-type.png" alt="" class="w-12">
                             </div>
                         </div>
                     </div>
@@ -100,9 +98,7 @@
                             <div
                                 class="flex items-center px-2.5 py-0.5 text-base font-semibold text-gray-500 dark:text-gray-500 text-center"
                             >
-                                <BugAntIcon
-                                    class="h-10 w-10 transition duration-75 mr-3"
-                                />
+                            <img src="/pesticide.png" alt="" class="w-12">
                             </div>
                         </div>
                     </div>
@@ -123,9 +119,7 @@
                             <div
                                 class="flex items-center px-2.5 py-0.5 text-base font-semibold text-gray-500 dark:text-gray-500 text-center"
                             >
-                                <BugAntIcon
-                                    class="h-10 w-10 transition duration-75 mr-3"
-                                />
+                                <img src="/pest-images.png" alt="" class="w-12">
                             </div>
                         </div>
                     </div>
@@ -146,9 +140,7 @@
                             <div
                                 class="flex items-center px-2.5 py-0.5 text-base font-semibold text-gray-500 dark:text-gray-500 text-center"
                             >
-                                <BugAntIcon
-                                    class="h-10 w-10 transition duration-75 mr-3"
-                                />
+                            <img src="/total-pest.png" alt="" class="w-12">
                             </div>
                         </div>
                     </div>

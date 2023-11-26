@@ -7,11 +7,9 @@
                 <div
                     class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-y-4 sm:gap-y-0"
                 >
-                    <div class="flex items-center justify-start text-gray-500">
-                        <BugAntIcon
-                            class="h-10 w-10 transition duration-75 mr-3"
-                        />
-                        <h1 class="text-3xl">{{ pageTitle }}</h1>
+                    <div class="flex items-center justify-start text-gray-950">
+                        <img src="/pest-type.png" alt="" class="w-16">
+                        <h1 class="text-5xl">{{ pageTitle }}</h1>
                     </div>
                 </div>
                 <div>
@@ -85,7 +83,7 @@
                                 (model.pest_type_photo != null) &
                                 (model.pest_type_photo != '')
                                     ? model.pest_type_photo
-                                    : '/pest-no-image.png'
+                                    : '/no-image.png'
                             "
                             class="w-52 h-52 object-cover rounded-md"
                         />

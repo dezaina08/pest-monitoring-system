@@ -7,10 +7,8 @@
                 <div
                     class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-y-4 sm:gap-y-0"
                 >
-                    <div class="flex items-center justify-start text-gray-500">
-                        <BugAntIcon
-                            class="h-10 w-10 transition duration-75 mr-3"
-                        />
+                <div class="flex items-center justify-start text-gray-950">
+                        <img src="/pesticide.png" alt="" class="w-16">
                         <h1 class="text-3xl">{{ pageTitle }}</h1>
                     </div>
                 </div>
