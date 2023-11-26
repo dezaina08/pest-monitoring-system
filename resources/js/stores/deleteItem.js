@@ -53,7 +53,7 @@ export const useDeleteItemStore = defineStore('deleteItem', {
                     onError: (error) => {
                         Swal.fire({
                             title: 'Something went wrong',
-                            text: "Please refresh the page.",
+                            text: error[0],
                             icon: 'error',
                             confirmButtonColor: '#d33',
                         })

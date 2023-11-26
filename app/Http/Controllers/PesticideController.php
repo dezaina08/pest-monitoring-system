@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Pesticide;
 use App\Http\Requests\Pesticide\StorePesticideRequest;
 use App\Http\Requests\Pesticide\UpdatePesticideRequest;
+use App\Models\PestType;
 
 class PesticideController extends Controller
 {
@@ -116,6 +117,14 @@ class PesticideController extends Controller
         if(!empty($request->id_array) && is_array($request->id_array)) {
             DB::beginTransaction();
             try {
+                $pestTypes = PestType::whereIn('pesticide_id', $request->id_array)->get();
+                
+                if (count($pestTypes) > 0) {
+                    return back()->withErrors([
+                        'Cannot delete Pesticide with associated Pest Type.'
+                    ]);
+                }
+
                 Pesticide::destroy($request->id_array);
                 DB::commit();
                 return back();

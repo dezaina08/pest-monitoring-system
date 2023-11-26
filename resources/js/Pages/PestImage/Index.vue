@@ -38,7 +38,7 @@
                 <template #tr>
                     <tr
                         v-if="props.response.data.length"
-                        v-for="item in props.response.data"
+                        v-for="(item, index) in props.response.data"
                         :key="item.id"
                         class="border-b hover:bg-gray-100 text-gray-500"
                     >
@@ -52,7 +52,7 @@
                             />
                         </td>
                         <td class="px-4 py-3">
-                            {{ item.id }}
+                            {{ index + 1 }}
                         </td>
                         <td class="px-4 w-16 py-3">
                             <div class="h-12 w-12">
@@ -208,9 +208,9 @@ const props = defineProps({
 // column = database column name, used for sortBy, null to disable sorting
 const tableHeader = ref([
     {
-        title: "ID",
+        title: "#",
         class: "px-4 py-3 w-16",
-        column: "id",
+        column: null,
         visible: true,
     },
     {

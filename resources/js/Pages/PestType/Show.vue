@@ -53,7 +53,7 @@
                             <div class="grid gap-4 sm:gap-6 mb-5">
                                 <DisplayData
                                     label="Pesticide"
-                                    :value="model.pesticide.name"
+                                    :value="model.pesticide?.name"
                                 />
                             </div>
                         </template>
