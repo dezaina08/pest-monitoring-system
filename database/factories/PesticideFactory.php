@@ -18,7 +18,7 @@ class PesticideFactory extends Factory
     {
         return [
             'name' => fake()->word(),
-            'target pests' => fake()->paragraph(),
+            'description' => fake()->paragraph(),
         ];
     }
 }

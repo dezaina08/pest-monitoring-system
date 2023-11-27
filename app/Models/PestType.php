@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Pest;
+use App\Models\Pesticide;
 use Spatie\MediaLibrary\HasMedia;
 use App\Traits\ModelTimelineTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class PestType extends Model implements HasMedia
 {
@@ -69,10 +71,10 @@ class PestType extends Model implements HasMedia
     }
 
     /**
-     * Get pesticide.
+     * The pest types that belong to the user.
      */
-    public function pesticide(): BelongsTo
+    public function pesticides(): BelongsToMany
     {
-        return $this->belongsTo(Pesticide::class);
+        return $this->belongsToMany(Pesticide::class, 'pesticide_pest_type');
     }
 }

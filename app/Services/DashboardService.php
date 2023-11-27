@@ -19,10 +19,11 @@ class DashboardService
         $pestTypes = DB::table('pest_types')
             ->select(
                 'pest_types.*',
-                'pesticides.name as pesticide',
+                // 'pesticides.name as pesticide_name',
                 DB::raw('SUM(filtered_pests.count) as pests_count'),
             )
-            ->join('pesticides', 'pest_types.pesticide_id', '=', 'pesticides.id')
+            // ->leftJoin('pesticide_pest_type', 'pest_types.id', '=', 'pesticide_pest_type.pest_type_id')
+            // ->leftJoin('pesticides', 'pesticide_pest_type.pesticide_id', '=', 'pesticides.id')
             // Join first query
             ->leftJoinSub($filteredPests, 'filtered_pests', function (JoinClause $join) {
                 $join->on('pest_types.id', '=', 'filtered_pests.pest_type_id');

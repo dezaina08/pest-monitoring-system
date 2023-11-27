@@ -38,7 +38,7 @@ class PestTypeController extends Controller
      */
     private function getData($request)
     {
-        $query = PestType::with('media', 'pesticide')
+        $query = PestType::with('media', 'pesticides')
 
         ->orderBy($this->tableName . '.' . ($request->orderBy ?? 'id'), $request->orderType ?? 'desc')
 
@@ -56,7 +56,7 @@ class PestTypeController extends Controller
      */
     public function create()
     {
-        $pesticides = Pesticide::all();
+        $pesticides = Pesticide::all('id', 'name');
         return Inertia::render('PestType/Create', [
             'pesticides' => $pesticides,
         ]);
@@ -71,11 +71,17 @@ class PestTypeController extends Controller
         DB::beginTransaction();
         try {
             $pestType = PestType::create($validated);
-                    // Add photo
+            // Add photo
             if ($request->photo) {
                 $pestType->addMedia($request->photo)
                     ->toMediaCollection('pest_type_photos');
             }
+
+            // Attach pesticides
+            foreach ($validated['pesticides'] as $pesticide) {
+                $pestType->pesticides()->attach($pesticide['id']);
+            }
+
             DB::commit();
             return back();
         } catch (Throwable $e) {
@@ -92,7 +98,7 @@ class PestTypeController extends Controller
     public function show(PestType $pestType)
     {
         return Inertia::render('PestType/Show', [
-            'model' => $pestType->load('pesticide')
+            'model' => $pestType->load('pesticides')
         ]);
     }
 
@@ -101,10 +107,9 @@ class PestTypeController extends Controller
      */
     public function edit(PestType $pestType)
     {
-        $pesticides = Pesticide::all();
         return Inertia::render('PestType/Edit', [
-            'model' => $pestType,
-            'pesticides' => $pesticides,
+            'model' => $pestType->load('pesticides'),
+            'pesticides' => Pesticide::all('id', 'name'),
         ]);
     }
 
@@ -120,10 +125,10 @@ class PestTypeController extends Controller
 
             // Remove photo
             if ($request->remove_photo) {
-            $media = $pestType->getFirstMedia('pest_type_photos');
-            if ($media) {
-                $media->delete();
-            }
+                $media = $pestType->getFirstMedia('pest_type_photos');
+                if ($media) {
+                    $media->delete();
+                }
             }
 
             // Add photo
@@ -131,6 +136,14 @@ class PestTypeController extends Controller
                 $pestType->addMedia($request->photo)
                     ->toMediaCollection('pest_type_photos');
             }
+
+             // Detach all pesticides
+             $pestType->pesticides()->detach();
+
+             // Attach pesticides
+             foreach ($validated['pesticides'] as $pesticide) {
+                 $pestType->pesticides()->attach($pesticide['id']);
+             }
 
             DB::commit();
             return back();
@@ -149,6 +162,10 @@ class PestTypeController extends Controller
             DB::beginTransaction();
             try {
                 Pest::whereIn('pest_type_id', $request->id_array)->delete();
+
+                DB::table('pesticide_pest_type')
+                ->whereIn('pest_type_id', $request->id_array)
+                ->delete();
 
                 PestType::destroy($request->id_array);
                 DB::commit();

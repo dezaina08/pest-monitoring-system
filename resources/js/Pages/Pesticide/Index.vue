@@ -14,7 +14,7 @@
                     <div class="flex gap-3">
                         <Link
                             :href="url + '/create'"
-                            class="flex items-center px-4 py-2 rounded-full border-2 border-green-500 text-green-500 font-bold focus:ring-1 ring-green-500 ring-offset-2 hover:bg-green-50s hover:text-green-600 hover:border-green-600 shadow-md transition ease-in-out duration-150"
+                            class="flex items-center px-4 py-2 rounded-full text-white font-bold focus:ring-1 ring-orange-500 ring-offset-2 hover:bg-orange-600 shadow-md transition ease-in-out duration-150 bg-orange-500"
                         >
                             <PlusCircleIcon
                                 class="block h-5 w-5 mr-2"
@@ -62,7 +62,11 @@
                         <td
                             class="px-4 py-3 font-medium whitespace-nowrap text-gray-900 truncate max-w-lg"
                         >
-                            {{ item.description }}
+                            <div
+                                v-for="(pest_type, index) in item.pest_types" :key="index"
+                            >
+                                {{ index + 1 }}. {{ pest_type.name }}
+                            </div>
                         </td>
                         <!-- Actions -->
                         <td class="text-sm font-light px-4 py-3">
@@ -212,7 +216,7 @@ const tableHeader = ref([
         visible: true,
     },
     {
-        title: "DESCRIPTION",
+        title: "TARGET PEST TYPE",
         class: "px-4 py-3",
         column: null,
         visible: true,
