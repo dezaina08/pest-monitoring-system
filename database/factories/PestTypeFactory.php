@@ -20,7 +20,7 @@ class PestTypeFactory extends Factory
         return [
             'name' => fake()->word(),
             'description' => fake()->paragraph(),
-            'pesticide_id' => Pesticide::all()->random()->id,
+            // 'pesticide_id' => Pesticide::all()->random()->id,
         ];
     }
 }

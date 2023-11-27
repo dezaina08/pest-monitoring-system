@@ -50,6 +50,17 @@
                                     :value="model.description"
                                 />
                             </div>
+                            <div class="grid gap-4 sm:gap-6 mb-5">
+                                <DisplayData
+                                    label="Target Pest Types"
+                                >
+                                    <div
+                                        v-for="(item, index) in model.pest_types" :key="index"
+                                    >
+                                        {{ index + 1 }}. {{ item.name }}
+                                    </div>
+                                </DisplayData>
+                            </div>
                         </template>
                     </Card>
                     <!-- END: Details -->

@@ -32,7 +32,6 @@ class PestTypeExport
         return [
             'ID',
             'Pest Type',
-            'Pesticide',
             'Count',
         ];
     }
@@ -45,7 +44,6 @@ class PestTypeExport
         return [
             $pest_type->id,
             $pest_type->name,
-            $pest_type->pesticide,
             $pest_type->pests_count,
         ];
     }

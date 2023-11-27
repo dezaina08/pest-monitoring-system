@@ -23,7 +23,8 @@ class StorePesticideRequest extends FormRequest
     {
         return [
             'name' => 'required|max:50|unique:pesticides',
-            'Target pests' => 'nullable',
+            'description' => 'nullable',
+            'pest_types' => 'required|array'
         ];
     }
 }

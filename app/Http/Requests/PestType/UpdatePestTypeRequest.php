@@ -35,7 +35,7 @@ class UpdatePestTypeRequest extends FormRequest
                 Rule::unique('pest_types')->ignore($this->id)
             ],
             'description' => 'nullable',
-            'pesticide_id' => 'required|exists:pesticides,id'
+            'pesticides' => 'required|array',
         ];
     }
 }
