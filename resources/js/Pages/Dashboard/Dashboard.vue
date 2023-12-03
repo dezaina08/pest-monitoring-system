@@ -2,8 +2,14 @@
     <Head title="Dashboard" />
 
     <AuthenticatedLayout>
-        <div class="py-12 px-4 sm:px-6 lg:px-8 relative">
-            <div class="grid grid-cols-3"></div>
+        <div class="py-4 px-4 sm:px-6 lg:px-8 relative">
+            <div class="mb-4">
+                <span
+                    class="self-center text-2xl font-semibold whitespace-nowrap truncate"
+                >
+                    Capiz State University Pilar Satellite College
+                </span>
+            </div>
             <div class="grid grid-cols-3 gap-4">
                 <div class="col-span-2">
                     <Card>

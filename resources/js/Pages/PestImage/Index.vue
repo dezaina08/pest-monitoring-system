@@ -2,7 +2,14 @@
     <Head :title="pageTitle" />
 
     <AuthenticatedLayout>
-        <div class="py-12 grid px-4 sm:px-6 lg:px-8 relative">
+        <div class="py-4 px-4 sm:px-6 lg:px-8 relative">
+            <div class="mb-4">
+                <span
+                    class="self-center text-2xl font-semibold whitespace-nowrap truncate"
+                >
+                    Capiz State University Pilar Satellite College
+                </span>
+            </div>
             <div class="mb-4">
                 <div
                     class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-y-4 sm:gap-y-0"
@@ -111,7 +118,7 @@
                                                 View
                                             </Link>
                                         </MenuItem>
-                                        <MenuItem as="li">
+                                        <!-- <MenuItem as="li">
                                             <Link
                                                 :href="
                                                     url +
@@ -127,7 +134,7 @@
                                                 />
                                                 Edit
                                             </Link>
-                                        </MenuItem>
+                                        </MenuItem> -->
                                         <MenuItem as="li">
                                             <button
                                                 type="button"
