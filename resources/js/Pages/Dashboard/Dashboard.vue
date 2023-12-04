@@ -2,11 +2,17 @@
     <Head title="Dashboard" />
 
     <AuthenticatedLayout>
-        <div class="py-12 px-4 sm:px-6 lg:px-8 relative">
-            <div class="grid grid-cols-3"></div>
+        <div class="py-4 px-4 sm:px-6 lg:px-8 relative">
+            <div class="mb-4">
+                <span
+                    class="self-center text-2xl font-semibold whitespace-nowrap truncate"
+                >
+                    Capiz State University Pilar Satellite College
+                </span>
+            </div>
             <div class="grid grid-cols-3 gap-4">
                 <div class="col-span-2">
-                    <Card>
+                    <Card class="mb-5">
                         <template #card-header>
                             <div class="flex items-center justify-between">
                                 <h3
@@ -55,6 +61,88 @@
                         <template #card-body>
                             <div>
                                 <Bar :data="barChartData" />
+                            </div>
+                        </template>
+                    </Card>
+                    <Card>
+                        <template #card-header>
+                            <div class="flex items-center justify-between">
+                                <h3
+                                    class="text-lg font-semibold text-gray-900 whitespace-nowrap md:mb-0 mb-3"
+                                >
+                                    Current Month Count Status ({{ limit }})
+                                </h3>
+                            </div>
+                        </template>
+                        <template #card-body>
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr class="border-y bg-amber-200">
+                                            <th class="text-start px-2">
+                                                #
+                                            </th>
+                                            <th class="text-start px-2">
+                                                Pest Type
+                                            </th>
+                                            <th class="text-start px-2">
+                                                Count
+                                            </th>
+                                            <th class="text-start px-2">
+                                                Status
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template
+                                            v-for="(item, index) in props.pest_type_current_month_count" :key="index"
+                                        >
+                                            <tr
+                                                v-if="item.pests_count >= limit"
+                                                class="border-b"
+                                            >
+                                                <td class="py-1 px-2">
+                                                    {{ index + 1 }}
+                                                </td>
+                                                <td class="py-1 px-2">
+                                                    <Link
+                                                        :href="'/pest-types/' + item.id"
+                                                        class="hover:underline text-blue-600 hover:text-blue-800"
+                                                    >
+                                                        {{ item.name }}
+                                                    </Link>
+                                                </td>
+                                                <td class="py-1 px-2">
+                                                    {{ item.pests_count }}
+                                                </td>
+                                                <td class="py-1 px-2 flex text-xs">
+                                                    <!-- limit value -->
+                                                    <div
+                                                        class="px-3 py-1 text-white bg-red-500 rounded-lg"
+                                                    >
+                                                        Over
+                                                    </div>
+                                                    <!-- <div
+                                                        v-else
+                                                        class="px-3 py-1 text-white bg-green-500 rounded-lg"
+                                                    >
+                                                        Normal
+                                                    </div> -->
+                                                </td>
+                                            </tr>
+                                        </template>
+                                        <tr
+                                            v-if="checkCount(props.pest_type_current_month_count)"
+                                        >
+                                            <td
+                                                class="text-center py-1 px-2"
+                                                colspan="4"
+                                            >
+                                                No item
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </template>
                     </Card>
@@ -151,7 +239,7 @@
 </template>
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, Link } from "@inertiajs/vue3";
 import { ref, computed, watch } from "vue";
 import {
     Chart as ChartJS,
@@ -213,9 +301,14 @@ const props = defineProps({
         type: null,
         default: "",
     },
+    pest_type_current_month_count: {
+        type: Array,
+        default: []
+    },
 });
 
 const additionalArgument = ref("");
+const limit = ref(10)
 
 // Deep Copy
 const bar_chart_date_from =
@@ -290,7 +383,6 @@ const setDate = (value) => {
     }
 }
 
-
 watch(
     () => additionalArgument.value,
     (newValue, oldValue) => {
@@ -310,4 +402,16 @@ watch(
         }
     }
 )
+
+let checkCount = (items) => {
+    let visibility = true
+
+    items.forEach(item => {
+        if (item.pests_count >= limit.value) {
+            visibility = false
+        }
+    })
+
+    return visibility
+}
 </script>

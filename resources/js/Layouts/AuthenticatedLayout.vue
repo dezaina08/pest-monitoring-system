@@ -1,5 +1,5 @@
 <template>
-        <div style="background-image: url('/clear.jpg');">
+        <div style="background-image: url('/clear.jpg'); background-repeat: no-repeat; background-size: cover;">
         <div class="min-h-screen relative w-full">
             <!-- NavBar -->
             <NavBar />
