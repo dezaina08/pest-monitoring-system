@@ -25,9 +25,15 @@ class DashboardController extends Controller
             'pest_types_count' => DashboardService::getPestTypesCount($request),
             'pest_images_count' => DashboardService::getPestImagesCount($request),
             'pesticides_count' => DashboardService::getPesticidesCount($request),
-            'bar_chart_filter_type' => $request->bar_chart_filter_type ?? 3,
+
+            'pest_type_current_month_count' => DashboardService::getBarChartData([
+                'bar_chart_date_from' => date('Y-m-01'),
+                'bar_chart_date_to' => date('Y-m-t'),
+            ]),
+
             'bar_chart_date_from' => $request->bar_chart_date_from ?? date('Y-m-01'),
             'bar_chart_date_to' => $request->bar_chart_date_to ?? date('Y-m-t'),
+            'monthly_limit' => $request->monthly_limit ?? 10,
         ]);
     }
 

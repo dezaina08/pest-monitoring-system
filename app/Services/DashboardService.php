@@ -12,9 +12,9 @@ class DashboardService
             ->select('pests.*')
             ->leftJoin('pest_images', 'pests.pest_image_id', '=', 'pest_images.id')
             // If no bar_chart_date_from is provided, use start of month
-            ->where('pest_images.date_captured', '>=', $request->bar_chart_date_from ?? date('Y-m-01'))
+            ->where('pest_images.date_captured', '>=', $request['bar_chart_date_from'] ?? date('Y-m-01'))
             // If no bar_chart_date_to is provided, use end of month
-            ->where('pest_images.date_captured', '<=', $request->bar_chart_date_to ?? date('Y-m-t'));
+            ->where('pest_images.date_captured', '<=', $request['bar_chart_date_to'] ?? date('Y-m-t'));
 
         $pestTypes = DB::table('pest_types')
             ->select(
