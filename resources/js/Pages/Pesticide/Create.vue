@@ -213,7 +213,7 @@ import {
 
 const moduleName = "Pesticides";
 const url = "pesticides";
-const pageTitle = "Create Pesticide";
+const pageTitle = "Suggest Pesticide";
 
 const props = defineProps({
     pest_types: Array,

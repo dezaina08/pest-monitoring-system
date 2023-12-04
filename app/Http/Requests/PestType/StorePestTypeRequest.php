@@ -30,7 +30,7 @@ class StorePestTypeRequest extends FormRequest
             ],
             'name' => 'required|max:50|unique:pest_types',
             'description' => 'nullable',
-            'pesticides' => 'required|array',
+            'pesticides' => 'nullable|array',
         ];
     }
 }

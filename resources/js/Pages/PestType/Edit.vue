@@ -156,7 +156,7 @@
                                         </Listbox>
                                         <InputError
                                             class="mt-1"
-                                            :message="form.errors.pesticide_id"
+                                            :message="form.errors.pesticides"
                                         />
                                     </div>
                                 </div>
@@ -260,12 +260,6 @@
                     </div>
                 </div>
             </form>
-            <button
-                type="button"
-                @click="add"
-            >
-                Add sssssssssss
-            </button>
         </div>
     </AuthenticatedLayout>
 </template>
