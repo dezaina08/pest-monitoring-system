@@ -1,9 +1,5 @@
 <template>
-<<<<<<< Updated upstream
-        <div style="background-image: url('/clear.jpg'); background-repeat: no-repeat; background-size: cover;">
-=======
-        <div style="background-image: url('/clear.jpg'); background-repeat: no-repeat;">
->>>>>>> Stashed changes
+    <div style="background-image: url('/clear.jpg'); background-repeat: no-repeat; background-size: cover;">
         <div class="min-h-screen relative w-full">
             <!-- NavBar -->
             <NavBar />
