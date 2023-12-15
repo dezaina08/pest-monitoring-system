@@ -3,13 +3,7 @@
 
     <AuthenticatedLayout>
         <div class="py-4 px-4 sm:px-6 lg:px-8 relative">
-            <div class="mb-4">
-                <span
-                    class="self-center text-2xl font-semibold whitespace-nowrap truncate"
-                >
-                    Capiz State University Pilar Satellite College
-                </span>
-            </div>
+            <PageHeader />
             <div class="grid grid-cols-3 gap-4">
                 <div class="col-span-2">
                     <Card class="mb-5">
@@ -259,6 +253,7 @@ import { BugAntIcon } from "@heroicons/vue/24/solid"
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import { endOfWeek, endOfMonth, endOfYear, startOfWeek, startOfMonth, startOfYear, subDays, subWeeks, subMonths } from 'date-fns';
+import PageHeader from '@/Components/Layouts/PageHeader.vue'
 
 ChartJS.register(
     Title,

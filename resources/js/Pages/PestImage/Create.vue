@@ -3,13 +3,7 @@
 
     <AuthenticatedLayout>
         <div class="py-4 px-4 sm:px-6 lg:px-8 relative">
-            <div class="mb-4">
-                <span
-                    class="self-center text-2xl font-semibold whitespace-nowrap truncate"
-                >
-                    Capiz State University Pilar Satellite College
-                </span>
-            </div>
+            <PageHeader />
             <div class="mb-4">
                 <div
                     class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-y-4 sm:gap-y-0"
@@ -131,6 +125,7 @@ import { router } from "@inertiajs/vue3";
 import { ref } from "vue";
 import InputError from "@/Components/InputError.vue";
 import Card from "@/Components/Card.vue";
+import PageHeader from '@/Components/Layouts/PageHeader.vue'
 
 const moduleName = "Upload Pest Images";
 const url = "pest-images";

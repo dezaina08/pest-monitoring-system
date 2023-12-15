@@ -3,18 +3,12 @@
 
     <AuthenticatedLayout>
         <div class="py-4 px-4 sm:px-6 lg:px-8 relative">
-            <div class="mb-4">
-                <span
-                    class="self-center text-2xl font-semibold whitespace-nowrap truncate"
-                >
-                    Capiz State University Pilar Satellite College
-                </span>
-            </div>
+            <PageHeader />
             <div class="mb-4">
                 <div
                     class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-y-4 sm:gap-y-0"
                 >
-                <div class="flex items-center justify-start text-gray-950">
+                    <div class="flex items-center justify-start text-gray-950">
                         <img src="/total-pest.png" alt="" class="w-16">
                         <h1 class="text-5xl">{{ pageTitle }}</h1>
                     </div>
@@ -220,6 +214,7 @@ import InputError from "@/Components/InputError.vue";
 import Card from "@/Components/Card.vue";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
+import PageHeader from '@/Components/Layouts/PageHeader.vue'
 
 const moduleName = "Counting";
 const url = "pests";
